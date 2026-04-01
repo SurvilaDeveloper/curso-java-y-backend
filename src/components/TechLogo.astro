@@ -1,0 +1,75 @@
+---
+interface Props {
+    name: "java" | "spring" | "maven" | "docker" | "flyway";
+    size?: number;
+    label?: boolean;
+}
+
+const { name, size = 48, label = true } = Astro.props;
+
+const logos = {
+    java: {
+        label: "Java",
+        src: "/java-original.svg",
+    },
+    spring: {
+        label: "Spring Boot",
+        src: "/spring-original.svg",
+    },
+    maven: {
+        label: "Maven",
+        src: "/maven-original.svg",
+    },
+    docker: {
+        label: "Docker",
+        src: "/docker-original.svg",
+    },
+    flyway: {
+        label: "Flyway",
+        src: "/flyway.svg",
+    },
+};
+
+const tech = logos[name];
+---
+
+<div class="tech-logo">
+    <div class="icon">
+        <img src={tech.src} alt={tech.label} width={size} height={size} />
+    </div>
+
+    {label && <span>{tech.label}</span>}
+</div>
+
+<style>
+    .tech-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.75rem;
+
+        border: 1px solid hsl(var(--border));
+        background-color: hsl(var(--card));
+
+        transition: all 0.2s ease;
+    }
+
+    .tech-logo:hover {
+        background-color: hsl(var(--accent));
+        transform: translateY(-2px);
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    span {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: hsl(var(--foreground));
+    }
+</style>

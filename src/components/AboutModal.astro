@@ -1,0 +1,284 @@
+---
+//src/components/AboutModal.astro
+---
+
+<style>
+    .aboutModalMain {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background:
+            radial-gradient(
+                circle at top,
+                rgba(59, 130, 246, 0.08) 0%,
+                transparent 35%
+            ),
+            rgba(2, 6, 23, 0.82);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .aboutModalCard {
+        width: min(100%, 760px);
+        border: 1px solid rgba(148, 163, 184, 0.16);
+        border-radius: 24px;
+        overflow: hidden;
+        background: linear-gradient(
+            180deg,
+            rgba(15, 23, 42, 0.98) 0%,
+            rgba(2, 6, 23, 0.98) 100%
+        );
+        box-shadow:
+            0 24px 80px rgba(0, 0, 0, 0.45),
+            0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+        color: #e5e7eb;
+        animation: aboutModalAppear 180ms ease-out;
+    }
+
+    .aboutModalHeader {
+        padding: 28px 28px 18px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        background: linear-gradient(
+            180deg,
+            rgba(30, 41, 59, 0.48) 0%,
+            rgba(15, 23, 42, 0.12) 100%
+        );
+    }
+
+    .aboutModalBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 14px;
+        padding: 6px 12px;
+        border: 1px solid rgba(96, 165, 250, 0.22);
+        border-radius: 999px;
+        background: rgba(59, 130, 246, 0.12);
+        color: #93c5fd;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+
+    .aboutModalTitle {
+        margin: 0;
+        font-size: clamp(1.5rem, 2vw, 2rem);
+        line-height: 1.15;
+        font-weight: 800;
+        color: #f8fafc;
+    }
+
+    .aboutModalSubtitle {
+        margin: 10px 0 0;
+        font-size: 0.98rem;
+        line-height: 1.65;
+        color: #94a3b8;
+    }
+
+    .aboutModalBody {
+        padding: 24px 28px 10px;
+    }
+
+    .aboutModalText {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.85;
+        color: #cbd5e1;
+    }
+
+    .aboutModalText strong {
+        color: #f8fafc;
+        font-weight: 700;
+    }
+
+    .aboutModalHighlight {
+        margin: 20px 0 0;
+        padding: 16px 18px;
+        border: 1px solid rgba(148, 163, 184, 0.12);
+        border-radius: 16px;
+        background: rgba(15, 23, 42, 0.55);
+        color: #cbd5e1;
+        font-size: 0.96rem;
+        line-height: 1.75;
+    }
+
+    .aboutModalFooter {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        padding: 22px 28px 28px;
+    }
+
+    .aboutModalCloseButton {
+        min-width: 132px;
+        cursor: pointer;
+    }
+
+    .aboutModalCloseButton:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    @keyframes aboutModalAppear {
+        from {
+            opacity: 0;
+            transform: translateY(10px) scale(0.985);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @media (max-width: 640px) {
+        .aboutModalMain {
+            padding: 16px;
+        }
+
+        .aboutModalHeader {
+            padding: 22px 18px 16px;
+        }
+
+        .aboutModalBody {
+            padding: 18px 18px 8px;
+        }
+
+        .aboutModalFooter {
+            padding: 18px;
+        }
+
+        .aboutModalTitle {
+            font-size: 1.35rem;
+        }
+
+        .aboutModalText,
+        .aboutModalHighlight,
+        .aboutModalSubtitle {
+            font-size: 0.96rem;
+        }
+
+        .aboutModalFooter {
+            justify-content: stretch;
+        }
+
+        .aboutModalCloseButton {
+            width: 100%;
+        }
+    }
+</style>
+
+<div
+    id="aboutModalMain"
+    class="aboutModalMain"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="aboutModalTitle"
+    aria-describedby="aboutModalText"
+>
+    <div class="aboutModalCard">
+        <div class="aboutModalHeader">
+            <span class="aboutModalBadge">Acerca del proyecto</span>
+
+            <h2 id="aboutModalTitle" class="aboutModalTitle">
+                Un espacio práctico para aprender Java y Backend
+            </h2>
+
+            <p class="aboutModalSubtitle">
+                Pensado como material de apoyo para estudiar, practicar y
+                repasar conceptos de forma autónoma.
+            </p>
+        </div>
+
+        <div class="aboutModalBody">
+            <p id="aboutModalText" class="aboutModalText">
+                Esta aplicación fue creada con el objetivo de contar con un
+                recurso accesible y útil para <strong
+                    >aprender Java y desarrollo Backend</strong
+                >, especialmente desde una perspectiva autodidacta. Además del
+                contenido teórico y práctico, incorpora una función de <strong
+                    >autoevaluación</strong
+                > que permite reforzar conocimientos y seguir el propio progreso de
+                una manera simple.
+                <br /><br />
+                Decidí publicarla en mi repositorio porque considero que también puede
+                servirle a otras personas que disfrutan aprender por su cuenta. Aunque
+                no busca reemplazar una formación guiada por docentes o tutores, sí
+                puede funcionar como
+                <strong>material de consulta, práctica y acompañamiento</strong>
+                dentro de un proceso de estudio más amplio.
+                <br /><br />
+                El proyecto es de código abierto, por lo que cualquier persona puede
+                explorarlo, descargarlo, adaptarlo y utilizarlo como base para seguir
+                aprendiendo o construir algo propio.
+            </p>
+
+            <div class="aboutModalHighlight">
+                Si este proyecto te resulta útil, una estrella en el repositorio
+                es una forma simple de apoyarlo y ayudar a que llegue a más
+                personas con interés en aprender.
+            </div>
+        </div>
+
+        <div class="aboutModalFooter">
+            <button
+                id="aboutModalCloseButton"
+                class="aboutModalCloseButton hero-link"
+                type="button"
+                aria-label="Cerrar ventana"
+            >
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const aboutModalMain = document.getElementById("aboutModalMain");
+    const aboutModalCloseButton = document.getElementById(
+        "aboutModalCloseButton",
+    );
+
+    const closeAboutModal = () => {
+        if (aboutModalMain) {
+            aboutModalMain.style.display = "none";
+            document.body.style.overflow = "";
+        }
+    };
+
+    const openAboutModal = () => {
+        if (aboutModalMain) {
+            aboutModalMain.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+    };
+
+    aboutModalCloseButton?.addEventListener("click", closeAboutModal);
+
+    aboutModalMain?.addEventListener("click", (event) => {
+        if (event.target === aboutModalMain) {
+            closeAboutModal();
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (
+            event.key === "Escape" &&
+            aboutModalMain?.style.display === "flex"
+        ) {
+            closeAboutModal();
+        }
+    });
+
+    window.addEventListener("about-modal:open", () => {
+        openAboutModal();
+    });
+
+    window.addEventListener("about-modal:close", () => {
+        closeAboutModal();
+    });
+</script>

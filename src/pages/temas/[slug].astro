@@ -1,0 +1,109 @@
+---
+//src/pages/temas/[slug].astro
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const temas = await getCollection("javaTemas", ({ data }) => !data.draft);
+
+  return temas.map((tema) => ({
+    params: { slug: tema.id },
+    props: { tema },
+  }));
+}
+
+const { tema } = Astro.props;
+const allTemas = (
+  await getCollection("javaTemas", ({ data }) => !data.draft)
+).sort((a, b) => a.data.order - b.data.order);
+
+const currentIndex = allTemas.findIndex((item) => item.id === tema.id);
+const previous = currentIndex > 0 ? allTemas[currentIndex - 1] : null;
+const next =
+  currentIndex < allTemas.length - 1 ? allTemas[currentIndex + 1] : null;
+
+const { Content, headings } = await render(tema);
+---
+
+<BaseLayout
+  title={`${tema.data.title} · Curso de Java`}
+  description={tema.data.description}
+>
+  <section class="topic-page">
+    <div class="container">
+      <div class="topic-page__header">
+        <div class="breadcrumbs">
+          <a href="/">Inicio</a>
+          <span>/</span>
+          <span>{tema.data.module}</span>
+          <span>/</span>
+          <span>{tema.data.title}</span>
+        </div>
+        {previous ? <a href={`/temas/${previous.id}`}>←</a> : <div />}
+        <span class="pill">Tema {tema.data.order}</span>
+        {next ? <a href={`/temas/${next.id}`}>→</a> : <div />}
+        <h1><span class="red">J</span>ava - {tema.data.title}</h1>
+
+        <p class="hero__lead">{tema.data.description}</p>
+      </div>
+
+      <div class="topic-page__grid">
+        <article class="card content-card markdown-content">
+          <Content />
+
+          <nav class="topic-nav" aria-label="Navegación entre temas">
+            {
+              previous ? (
+                <a href={`/temas/${previous.id}`}>
+                  <div class="muted">Anterior</div>
+                  <strong>{previous.data.title}</strong>
+                </a>
+              ) : (
+                <div />
+              )
+            }
+
+            {
+              next ? (
+                <a href={`/temas/${next.id}`}>
+                  <div class="muted">Siguiente</div>
+                  <strong>{next.data.title}</strong>
+                </a>
+              ) : (
+                <div />
+              )
+            }
+            <a
+              class="autotestAnchor"
+              href={`/autotest/${tema.id}`}
+              target="_blank"
+              rel="npopener noreferrer">Auto-evaluación</a
+            >
+          </nav>
+        </article>
+
+        <aside class="topic-summary">
+          <h3>Resumen rápido</h3>
+          <p><strong>Módulo:</strong> {tema.data.module}</p>
+          <p><strong>Nivel:</strong> {tema.data.level}</p>
+          <p><strong>Slug:</strong> /temas/{tema.id}</p>
+
+          {
+            headings.length > 0 && (
+              <>
+                <h3>En esta página</h3>
+                <nav class="topic-summary__list">
+                  {headings
+                    .filter((heading) => heading.depth <= 2)
+                    .map((heading) => (
+                      <a href={`#${heading.slug}`}>{heading.text}</a>
+                    ))}
+                </nav>
+              </>
+            )
+          }
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

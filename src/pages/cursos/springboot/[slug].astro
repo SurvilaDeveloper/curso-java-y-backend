@@ -1,0 +1,122 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+    const temas = await getCollection(
+        "springbootTemas",
+        ({ data }) => !data.draft,
+    );
+
+    return temas.map((tema) => ({
+        params: { slug: tema.id },
+        props: { tema },
+    }));
+}
+
+const { tema } = Astro.props;
+
+const allTemas = (
+    await getCollection("springbootTemas", ({ data }) => !data.draft)
+).sort((a, b) => a.data.order - b.data.order);
+
+const currentIndex = allTemas.findIndex((item) => item.id === tema.id);
+const previous = currentIndex > 0 ? allTemas[currentIndex - 1] : null;
+const next =
+    currentIndex < allTemas.length - 1 ? allTemas[currentIndex + 1] : null;
+
+const { Content, headings } = await render(tema);
+---
+
+<BaseLayout
+    title={`${tema.data.title} | Curso de Spring Boot`}
+    description={tema.data.description}
+>
+    <section class="topic-page">
+        <div class="container">
+            <div class="topic-page__header">
+                <div class="breadcrumbs">
+                    <a href="/">Inicio</a>
+                    <span>/</span>
+                    <a href="/cursos/springboot">Spring Boot</a>
+                    <span>/</span>
+                    <span>{tema.data.title}</span>
+                </div>
+
+                <h1>
+                    <span class="lightblue">Spring Boot</span> - {
+                        tema.data.title
+                    }
+                </h1>
+                <p>{tema.data.description}</p>
+
+                <div
+                    style="display:flex; gap:.75rem; flex-wrap:wrap; margin-top:1rem;"
+                >
+                    <span class="pill">Módulo: {tema.data.module}</span>
+                    <span class="pill">Nivel: {tema.data.level}</span>
+                    {
+                        previous ? (
+                            <a href={`/cursos/springboot/${previous.id}`}>←</a>
+                        ) : (
+                            <span />
+                        )
+                    }
+                    <span class="pill">Tema: {tema.data.order}</span>
+                    {
+                        next ? (
+                            <a href={`/cursos/springboot/${next.id}`}>→</a>
+                        ) : (
+                            <span />
+                        )
+                    }
+                </div>
+            </div>
+
+            <div class="topic-page__grid">
+                <article class="card content-card">
+                    <Content />
+
+                    <nav class="topic-nav">
+                        {
+                            previous ? (
+                                <a href={`/cursos/springboot/${previous.id}`}>
+                                    ← {previous.data.title}
+                                </a>
+                            ) : (
+                                <span />
+                            )
+                        }
+
+                        {
+                            next ? (
+                                <a href={`/cursos/springboot/${next.id}`}>
+                                    {next.data.title} →
+                                </a>
+                            ) : (
+                                <span />
+                            )
+                        }
+                    </nav>
+                </article>
+
+                <aside class="topic-summary">
+                    <h3>En este tema</h3>
+                    <p>{tema.data.description}</p>
+
+                    {
+                        headings.length > 0 && (
+                            <div class="topic-summary__list">
+                                {headings.map((heading) => (
+                                    <a href={`#${heading.slug}`}>
+                                        {heading.text}
+                                    </a>
+                                ))}
+                            </div>
+                        )
+                    }
+                </aside>
+            </div>
+        </div>
+    </section>
+</BaseLayout>

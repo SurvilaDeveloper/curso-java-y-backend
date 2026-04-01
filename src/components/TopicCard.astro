@@ -1,0 +1,23 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  module: string;
+  level: string;
+  order: number;
+}
+
+const { href, title, description, module, level, order } = Astro.props;
+---
+
+<a class="topic-card" href={href}>
+  <div class="topic-card__meta">
+    <span class="pill">Tema {order}</span>
+    <span>{module}</span>
+  </div>
+
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <span class="pill">{level}</span>
+</a>

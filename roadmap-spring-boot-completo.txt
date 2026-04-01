@@ -1,0 +1,676 @@
+ROADMAP COMPLETO · SPRING BOOT DESDE CERO HASTA AVANZADO
+Idioma: Español
+Formato: lista numerada por temas, pensada para convertir cada punto en una página o archivo .md
+
+Módulo 00 · Base previa
+001. Qué es Spring Boot y por qué existe
+002. Qué problema resuelve Spring Boot frente a Spring Framework puro
+003. Panorama del ecosistema Spring: Framework, Boot, Data, Security, Cloud, Batch
+004. Qué nivel de Java conviene tener antes de empezar
+005. Repaso de clases, objetos y encapsulamiento en Java
+006. Repaso de herencia, composición y polimorfismo en Java
+007. Repaso de interfaces y clases abstractas
+008. Repaso de excepciones checked y unchecked
+009. Repaso de colecciones: List, Set, Map
+010. Repaso de generics
+011. Repaso de streams y lambdas
+012. Repaso de Optional
+013. Repaso de records en Java
+014. Repaso de enums en Java
+015. Repaso de annotations en Java
+016. Repaso de packages y organización del código
+017. Repaso de fechas y java.time
+018. Repaso de manejo de archivos en Java
+019. Fundamentos de JSON
+020. Fundamentos de HTTP: request, response y statelessness
+021. Métodos HTTP: GET, POST, PUT, PATCH, DELETE
+022. Status codes HTTP más usados
+023. Headers HTTP más comunes
+024. Content-Type y negociación de contenido
+025. Idempotencia y seguridad de métodos HTTP
+026. Qué es una API REST y qué no es REST
+027. Fundamentos de SQL para backend
+028. SELECT, INSERT, UPDATE y DELETE
+029. JOINs básicos
+030. Índices básicos y por qué importan
+031. Qué es Maven
+032. Estructura básica de un proyecto Maven
+033. Lifecycle de Maven
+034. Dependencias, plugins y scopes en Maven
+035. Qué es Gradle
+036. Cuándo usar Maven o Gradle
+037. Uso básico de Git en proyectos backend
+038. Cómo leer documentación oficial sin perderse
+
+Módulo 01 · Primer contacto con Spring Boot
+039. Qué es Spring Framework: IoC, DI y contenedor
+040. Qué es un ApplicationContext
+041. Qué es un bean en Spring
+042. Inversión de control explicada con ejemplos simples
+043. Inyección de dependencias por constructor
+044. Por qué evitar field injection
+045. Anotaciones estereotipo: @Component, @Service, @Repository, @Controller
+046. Qué hace @SpringBootApplication
+047. Cómo funciona el component scanning
+048. Crear un proyecto con Spring Initializr
+049. Elegir Java, build tool y dependencias iniciales
+050. Estructura inicial de un proyecto Spring Boot
+051. Clase main y arranque de la aplicación
+052. Ejecutar la app desde el IDE
+053. Ejecutar la app con Maven
+054. Ejecutar la app con Gradle
+055. Empaquetar la app como jar ejecutable
+056. Qué son los starters de Spring Boot
+057. Entender spring-boot-starter-parent
+058. Primer endpoint: Hello World
+059. Primer servicio inyectado
+060. Primer uso de @Bean en configuración
+061. Diferencia entre configuración automática y configuración explícita
+062. Convención sobre configuración en Spring Boot
+063. Leer logs de arranque de una aplicación Boot
+064. Qué información importante trae el startup log
+
+Módulo 02 · Configuración y entorno
+065. application.properties vs application.yml
+066. Dónde ubicar la configuración
+067. Precedencia de propiedades en Spring Boot
+068. Variables de entorno y configuración externa
+069. Uso de argumentos de línea de comandos
+070. Inyectar propiedades con @Value
+071. Cuándo usar @ConfigurationProperties
+072. Binding de propiedades complejas
+073. Validar ConfigurationProperties
+074. Perfiles: dev, test, prod
+075. Activar perfiles en tiempo de ejecución
+076. Cargar propiedades por perfil
+077. Buenas prácticas para secrets y credenciales
+078. Separar configuración sensible del repositorio
+079. Placeholders y composición de propiedades
+080. Configurar puertos, contexto y nombre de aplicación
+081. Banner, logging y settings de arranque
+082. DevTools y reinicio rápido
+083. Diferencia entre configuración de aplicación y configuración de infraestructura
+084. Feature flags simples con properties
+
+Módulo 03 · Spring Core e IoC en serio
+085. Ciclo de vida de un bean
+086. Singleton, prototype y otros scopes
+087. Lazy initialization
+088. Primary beans y resolución de ambigüedad
+089. Uso de @Qualifier
+090. PostConstruct y PreDestroy
+091. BeanFactory vs ApplicationContext
+092. Configuración con clases @Configuration
+093. Métodos @Bean
+094. Importar configuración modular con @Import
+095. Profiles sobre beans y configuraciones
+096. Condiciones con @Conditional
+097. Auto-configuración a nivel conceptual
+098. Cómo inspeccionar qué auto-configuraciones se aplican
+099. Principio de responsabilidad por capa en una app Spring
+100. Diseño por interfaces en servicios
+101. Acoplamiento y cohesión en aplicaciones Boot
+102. Organización de paquetes por capa
+103. Organización de paquetes por feature
+104. Cuándo conviene cada estilo de empaquetado
+
+Módulo 04 · Web MVC y REST desde cero
+105. Qué es Spring MVC
+106. Servlet stack vs reactive stack
+107. Por qué empezar con Spring MVC
+108. Anatomía de un @RestController
+109. Request mapping a nivel clase y método
+110. GET con @GetMapping
+111. POST con @PostMapping
+112. PUT con @PutMapping
+113. PATCH con @PatchMapping
+114. DELETE con @DeleteMapping
+115. Capturar parámetros con @PathVariable
+116. Capturar query params con @RequestParam
+117. Capturar body JSON con @RequestBody
+118. Enviar respuestas JSON automáticamente con Jackson
+119. Uso de ResponseEntity
+120. Headers y status personalizados
+121. Diseño de rutas REST limpias
+122. Nombres de recursos y convenciones REST
+123. Versionado de APIs: introducción
+124. DTOs de request
+125. DTOs de response
+126. No exponer entidades JPA directamente
+127. Mapeo manual entre entidad y DTO
+128. Introducción a MapStruct como opción futura
+129. Subida básica de archivos con Multipart
+130. Descarga de archivos desde un endpoint
+131. Manejo de fechas y formatos JSON
+132. Serialización y deserialización personalizada
+133. Consistencia en el formato de respuestas
+134. Paginación en endpoints REST
+135. Ordenamiento en endpoints REST
+136. Filtrado básico en endpoints REST
+137. Búsqueda simple en endpoints REST
+138. Idempotencia en endpoints de escritura
+139. Buenas prácticas para PATCH
+140. Cuándo usar 200, 201, 204, 400, 404, 409, 422, 500
+141. Introducción a CORS
+142. Configurar CORS globalmente
+143. Configurar CORS por controlador
+
+Módulo 05 · Validación y manejo de errores
+144. Qué es Bean Validation
+145. Agregar validaciones a DTOs
+146. Uso de @NotNull, @NotBlank y @NotEmpty
+147. Uso de @Size, @Min, @Max, @Positive
+148. Uso de @Email y validaciones comunes
+149. Validar con @Valid en request bodies
+150. Validación a nivel de método con @Validated
+151. Crear mensajes de error claros
+152. Capturar errores de validación
+153. Global exception handling con @ControllerAdvice
+154. Usar @ExceptionHandler
+155. Definir un error response estándar
+156. Manejar ResourceNotFoundException
+157. Manejar conflictos de negocio
+158. Manejar errores inesperados sin filtrar detalles internos
+159. Crear excepciones de dominio
+160. Propagar errores correctamente entre capas
+161. Logging de errores sin duplicación
+162. Diferencia entre error técnico y error funcional
+163. Internationalización básica de mensajes de validación
+
+Módulo 06 · Persistencia con Spring Data JPA
+164. Qué es JPA
+165. Qué hace Hibernate dentro de Spring Boot
+166. Qué es Spring Data JPA
+167. Agregar spring-boot-starter-data-jpa
+168. Configurar H2 para desarrollo rápido
+169. Crear la primera entidad con @Entity
+170. Elegir el tipo de clave primaria
+171. Uso de @Id y @GeneratedValue
+172. Tipos de generación de ids
+173. Mapeo de columnas con @Column
+174. Restricciones y nulabilidad en entidades
+175. Auditar timestamps básicos
+176. Crear un JpaRepository
+177. Métodos CRUD heredados
+178. Query methods por nombre
+179. Búsqueda por múltiples campos
+180. findBy, existsBy y countBy
+181. Uso básico de @Query
+182. Consultas JPQL
+183. Consultas nativas
+184. Paginación con Pageable
+185. Sorting con Sort
+186. Relación ManyToOne
+187. Relación OneToMany
+188. Relación OneToOne
+189. Relación ManyToMany
+190. mappedBy y ownership de relaciones
+191. FetchType LAZY vs EAGER
+192. Cascade types
+193. orphanRemoval
+194. Qué problema resuelve @Transactional
+195. Introducción a transacciones declarativas
+196. Lecturas vs escrituras transaccionales
+197. Transacciones en service layer
+198. Problema N+1: detección básica
+199. Uso de fetch join para evitar N+1
+200. Uso de @EntityGraph
+201. Diferencia entre persist, merge y flush a nivel conceptual
+202. Dirty checking
+203. Contexto de persistencia
+204. LazyInitializationException y cómo evitarla
+205. No serializar entidades perezosas directamente
+206. Diseño de entidades limpias para negocio real
+207. Soft delete: concepto y opciones
+208. Optimistic locking con @Version
+209. Manejo de concurrencia básica
+
+Módulo 07 · Bases de datos reales y migraciones
+210. Pasar de H2 a PostgreSQL
+211. Pasar de H2 a MySQL
+212. Configurar datasource en distintos entornos
+213. Pool de conexiones: introducción
+214. Qué es HikariCP
+215. Ajustes básicos del pool de conexiones
+216. Qué son las migraciones de base de datos
+217. Introducción a Flyway
+218. Primera migración con Flyway
+219. Versionado de esquema
+220. Migraciones repetibles
+221. Buenas prácticas para scripts SQL
+222. Datos semilla y datos de prueba
+223. Estrategia ddl-auto y por qué no abusar de ella
+224. Separar esquema de desarrollo y producción
+225. Índices y performance a nivel introductorio
+226. Uso de constraints en base de datos
+227. Diseño de tablas para aplicaciones de negocio
+228. Normalización básica
+229. Cuándo desnormalizar
+
+Módulo 08 · Diseño de APIs más profesionales
+230. Arquitectura controller-service-repository
+231. Servicios de aplicación vs lógica de dominio
+232. Uso de records para DTOs
+233. Mapeo entre capas de manera mantenible
+234. Convenciones para nombres de endpoints
+235. Formato uniforme de errores
+236. Diseñar endpoints de listado
+237. Diseñar endpoints de detalle
+238. Diseñar endpoints de creación
+239. Diseñar endpoints de actualización completa
+240. Diseñar endpoints de actualización parcial
+241. Diseñar endpoints de borrado lógico
+242. Filtros complejos de búsqueda
+243. Búsqueda por texto
+244. Paginación avanzada y metadatos de respuesta
+245. Ordenamiento por múltiples campos
+246. Headers de ubicación tras creación de recursos
+247. ETags e introducción al caching HTTP
+248. Idempotency keys a nivel conceptual
+249. Versionado de API por URI, header o media type
+250. Compatibilidad hacia atrás
+251. Deprecación de endpoints
+252. Documentar contratos desde el principio
+253. Introducción a HATEOAS y cuándo vale la pena
+
+Módulo 09 · Testing desde cero hasta sólido
+254. Por qué testear en Spring Boot
+255. Tipos de tests: unitarios, integración, slice, end-to-end
+256. JUnit 5 en proyectos Spring
+257. Assertions claras y expresivas
+258. Qué mockear y qué no mockear
+259. Mockito básico
+260. Test unitario de un servicio simple
+261. Testear validaciones de negocio
+262. Testear excepciones esperadas
+263. Introducción a @SpringBootTest
+264. Costo de levantar el contexto completo
+265. Web layer tests con @WebMvcTest
+266. Repositorio con @DataJpaTest
+267. Cuándo usar @MockBean
+268. MockMvc desde cero
+269. Testear JSON en respuestas HTTP
+270. Testear status codes y headers
+271. Testear errores de validación
+272. Base de datos embebida en tests
+273. Rollback automático en @DataJpaTest
+274. Fixtures y factories para datos de prueba
+275. Builders de test
+276. Testcontainers: introducción
+277. Usar PostgreSQL real con Testcontainers
+278. Pruebas de integración con base real
+279. Testear repositorios con consultas custom
+280. Pruebas de performance básica en endpoints
+281. Cobertura de tests: cómo interpretarla sin obsesión
+282. Diseñar código fácil de testear
+283. Evitar tests frágiles
+
+Módulo 10 · Seguridad con Spring Security
+284. Qué resuelve Spring Security
+285. Autenticación vs autorización
+286. Arquitectura general de Spring Security
+287. SecurityContextHolder y contexto de seguridad
+288. Filter chain de seguridad
+289. Primera configuración de seguridad
+290. Proteger todos los endpoints por defecto
+291. Abrir endpoints públicos concretos
+292. Usuarios en memoria para empezar
+293. PasswordEncoder y BCrypt
+294. Form login: introducción
+295. HTTP Basic: cuándo usarlo
+296. CSRF: qué es y cuándo importa
+297. CORS y seguridad de APIs
+298. Roles y authorities
+299. Autorización por rutas
+300. Autorización por método
+301. Uso de @PreAuthorize
+302. Expresiones de seguridad
+303. Manejo de 401 y 403
+304. Custom UserDetailsService
+305. Cargar usuarios desde base de datos
+306. Modelo de usuario, rol y permiso
+307. Login basado en sesión vs stateless
+308. Introducción a JWT
+309. Generar y validar JWT
+310. Access token y refresh token
+311. Filtro JWT personalizado
+312. Logout en una API stateless
+313. Blacklist y revocación de tokens: opciones
+314. Seguridad por capas en aplicaciones reales
+315. OAuth2: introducción conceptual
+316. Login social y OAuth2 client
+317. Resource server y validación de bearer tokens
+318. Buenas prácticas de seguridad en producción
+
+Módulo 11 · Observabilidad, logging y Actuator
+319. Logging en Spring Boot
+320. Niveles de log
+321. Logging por paquete
+322. Buenas prácticas para mensajes de log
+323. Cuándo usar info, warn y error
+324. Evitar loggear datos sensibles
+325. Trazabilidad básica con request ids
+326. Formato de logs para producción
+327. Introducción a Logback
+328. Customizar logback-spring.xml
+329. Qué es Spring Boot Actuator
+330. Agregar Actuator al proyecto
+331. Endpoints built-in de Actuator
+332. health endpoint
+333. info endpoint
+334. metrics endpoint
+335. env endpoint y riesgos de exposición
+336. Configurar exposición de endpoints
+337. Health indicators personalizados
+338. Liveness y readiness probes
+339. Micrometer: introducción
+340. Métricas de JVM y sistema
+341. Métricas HTTP
+342. Registrar métricas custom
+343. Integración con Prometheus
+344. Introducción a dashboards con Grafana
+345. Auditing con Actuator: introducción
+346. Observabilidad mínima para un proyecto real
+
+Módulo 12 · Consumo de servicios externos
+347. Qué opciones hay para clientes HTTP en Spring
+348. RestTemplate a nivel histórico y mantenimiento
+349. Introducción a WebClient
+350. Configurar un cliente HTTP reusable
+351. Consumir una API GET externa
+352. Enviar POST a APIs externas
+353. Manejo de timeouts
+354. Manejo de reintentos a nivel conceptual
+355. Manejo de errores HTTP externos
+356. Mapeo de respuestas externas a DTOs internos
+357. Autenticación con APIs externas
+358. Headers custom y tokens bearer
+359. Subida de archivos a servicios externos
+360. Descarga de archivos de servicios externos
+361. Circuit breaker a nivel conceptual
+362. Introducción a Resilience patterns
+363. Diseñar integraciones desacopladas
+364. Idempotencia en integraciones
+365. Webhooks: recepción y validación
+366. Firmas y seguridad de webhooks
+
+Módulo 13 · Features de backend frecuentes
+367. Subida de archivos con MultipartFile
+368. Guardar archivos en disco local
+369. Diseño para storage externo
+370. Integración con S3 o compatible
+371. Descarga segura de archivos
+372. Enviar emails con Spring Mail
+373. Plantillas de correo: introducción
+374. Generación de PDFs a nivel conceptual
+375. Caching con Spring Cache
+376. Anotaciones @Cacheable, @CachePut y @CacheEvict
+377. Caches en memoria
+378. Introducción a Redis para cache
+379. Scheduling con @Scheduled
+380. Tareas recurrentes y cron expressions
+381. Ejecución asíncrona con @Async
+382. Pools de hilos y executors
+383. Eventos de aplicación con ApplicationEventPublisher
+384. Domain events a nivel introductorio
+385. Validación de archivos subidos
+386. Límites y seguridad en uploads
+
+Módulo 14 · Mensajería e integración asíncrona
+387. Cuándo conviene mensajería
+388. Conceptos de broker, cola, exchange y topic
+389. Introducción a JMS
+390. Introducción a RabbitMQ con Spring AMQP
+391. Publicar mensajes
+392. Consumir mensajes
+393. Serialización de mensajes
+394. Reintentos y dead letter queues
+395. Idempotencia en consumidores
+396. Introducción a Apache Kafka en el ecosistema Spring
+397. Productores Kafka
+398. Consumidores Kafka
+399. Consumer groups y particiones
+400. Offsets y confirmaciones
+401. Errores y reintentos en Kafka
+402. Eventos de negocio con mensajería
+403. Diseño de contratos de eventos
+404. Versionado de eventos
+405. Outbox pattern: introducción
+406. Event-driven architecture: ventajas y costos
+
+Módulo 15 · Documentación y contratos
+407. Por qué documentar APIs
+408. Introducción a OpenAPI
+409. Swagger UI en proyectos Spring Boot
+410. Documentar endpoints, parámetros y respuestas
+411. Documentar errores estándar
+412. Ejemplos de requests y responses
+413. Agrupar endpoints por tags
+414. Versionar documentación
+415. Contratos claros para frontend y terceros
+416. Introducción a Spring REST Docs
+417. Cuándo usar OpenAPI y cuándo REST Docs
+
+Módulo 16 · Web tradicional y vistas del lado del servidor
+418. Spring MVC con templates: panorama
+419. Introducción a Thymeleaf
+420. Controladores que retornan vistas
+421. Model y ModelAndView
+422. Form binding con Thymeleaf
+423. Validación en formularios server-side
+424. Login form con Spring Security
+425. Manejo de mensajes flash
+426. Subida de archivos en apps MVC
+427. Cuándo conviene una app MVC tradicional
+
+Módulo 17 · Más allá de JPA: alternativas de acceso a datos
+428. Cuándo JPA no alcanza o no conviene
+429. Introducción a Spring JDBC
+430. JdbcTemplate básico
+431. Consultas y mapping manual
+432. Introducción a Spring Data JDBC
+433. Diferencias entre JPA y JDBC
+434. Introducción a jOOQ a nivel conceptual
+435. Elección de estrategia de acceso a datos según caso
+
+Módulo 18 · Transacciones y consistencia en profundidad
+436. Transacciones declarativas con @Transactional
+437. Propagación de transacciones
+438. Isolation levels
+439. Read only transactions
+440. Rollback por runtime exceptions
+441. Rollback por checked exceptions
+442. Self-invocation y límite del proxy transaccional
+443. Transacciones largas y problemas asociados
+444. Consistencia eventual: introducción
+445. Saga pattern a nivel conceptual
+446. Compensaciones en procesos distribuidos
+
+Módulo 19 · Performance y escalabilidad
+447. Dónde suele perder rendimiento una app Spring Boot
+448. Medir antes de optimizar
+449. Diagnóstico básico de consultas lentas
+450. Optimización de queries JPA
+451. Reducir N+1 en listados
+452. Proyecciones y DTO queries
+453. Paginación eficiente
+454. Batch inserts y batch updates
+455. Uso correcto del pool de conexiones
+456. Timeouts de base de datos
+457. Caching y reducción de carga
+458. Compresión HTTP y tuning básico
+459. Thread pools y cuello de botella
+460. Backpressure a nivel conceptual
+461. Escalado vertical vs horizontal
+462. Statelessness para escalar APIs
+463. Rate limiting: introducción
+464. Límites de payload y protección de recursos
+
+Módulo 20 · Empaquetado, Docker y despliegue
+465. Jar ejecutable de Spring Boot
+466. Estructura de un fat jar
+467. Layered jars
+468. Crear Dockerfile para Spring Boot
+469. Optimizar Dockerfile con capas
+470. Buildpacks y Paketo
+471. Crear imágenes container con Maven plugin
+472. Crear imágenes container con Gradle plugin
+473. Variables de entorno en contenedores
+474. Externalizar configuración en Docker
+475. Health checks de contenedores
+476. Logs en contenedores
+477. Introducción a Docker Compose para desarrollo
+478. Levantar app + base de datos con Compose
+479. Deploy simple en VPS
+480. Reverse proxy con Nginx a nivel conceptual
+481. HTTPS y terminación TLS a nivel conceptual
+482. Introducción a despliegue en nube
+483. Factores de producción: logs, secrets, backups, observabilidad
+484. Checklist mínima antes de salir a producción
+
+Módulo 21 · Kubernetes y cloud native
+485. Por qué Kubernetes puede interesar a una app Spring Boot
+486. Conceptos básicos de pods, deployments y services
+487. ConfigMaps y Secrets
+488. Liveness y readiness en Kubernetes
+489. Exponer métricas para scraping
+490. Escalado horizontal con HPA: introducción
+491. Rolling updates
+492. Configuración por entorno en clusters
+493. Logs y observabilidad en entornos orquestados
+494. Cuándo Kubernetes es exceso para un proyecto pequeño
+
+Módulo 22 · Native images y AOT
+495. Qué es GraalVM Native Image
+496. Ventajas y costos de native images
+497. AOT en Spring Boot
+498. Diferencias entre JVM y nativo
+499. Generar una native image con buildpacks
+500. Generar una native image con native build tools
+501. Limitaciones comunes de native images
+502. Reflexión, proxies y recursos en nativo
+503. Cuándo vale la pena compilar nativo
+504. Testing de aplicaciones nativas
+
+Módulo 23 · WebFlux y programación reactiva
+505. Qué es Spring WebFlux
+506. Diferencia entre MVC y WebFlux
+507. Cuándo tiene sentido usar WebFlux
+508. Conceptos básicos de reactive programming
+509. Mono y Flux
+510. Primer endpoint reactivo
+511. WebClient reactivo
+512. Persistencia reactiva: panorama
+513. Errores en pipelines reactivos
+514. No mezclar reactive con blocking sin criterio
+515. Elegir entre MVC y WebFlux con criterio de arquitectura
+
+Módulo 24 · Seguridad avanzada
+516. Profundizar en la arquitectura de autenticación
+517. AuthenticationManager y AuthenticationProvider
+518. Filtros custom en la cadena de seguridad
+519. Method security avanzada
+520. Permisos basados en dominio
+521. ACLs a nivel conceptual
+522. Multi-tenant security: introducción
+523. OAuth2 client en profundidad
+524. OAuth2 login
+525. Resource Server con JWT
+526. Validación de scopes y claims
+527. Integración con proveedor externo de identidad
+528. SSO a nivel conceptual
+529. Buenas prácticas para rotación de claves y secretos
+530. Protección contra ataques comunes
+
+Módulo 25 · Arquitectura, diseño y modularización
+531. Monolito modular con Spring Boot
+532. Organización del código por bounded contexts
+533. Separar módulos internos
+534. Hexagonal architecture: introducción
+535. Puertos y adaptadores
+536. Casos de uso y servicios de aplicación
+537. Dominio rico vs dominio anémico
+538. DTOs en bordes, dominio en el centro
+539. Persistencia como detalle de infraestructura
+540. Eventos internos entre módulos
+541. Refactorizar de por capas a por features
+542. Mantener código grande sin caos
+543. Cuándo extraer microservicios y cuándo no
+544. Trade-offs reales de microservicios
+
+Módulo 26 · Batch, jobs y procesos largos
+545. Qué es Spring Batch
+546. Cuándo conviene usar Spring Batch
+547. Job, Step y Reader/Processor/Writer
+548. Primer job batch
+549. Lectura de CSV
+550. Procesamiento y validación en lote
+551. Escritura en base de datos
+552. Reinicio de jobs fallidos
+553. Scheduling de jobs
+554. Monitorización de procesos batch
+
+Módulo 27 · Casos de uso avanzados y enterprise
+555. Multi-módulo con Maven para ecosistema de servicios
+556. Bibliotecas internas compartidas
+557. Starter propio de empresa: introducción
+558. Auto-configuración custom
+559. Condiciones custom de auto-configuración
+560. Publicar una librería interna
+561. Feature toggles más robustos
+562. Auditoría de negocio
+563. Soft delete empresarial
+564. Versionado de contratos internos
+565. Compatibilidad entre servicios
+566. Estrategias de migración de API
+
+Módulo 28 · Buenas prácticas de producción
+567. Twelve-Factor App aplicado a Spring Boot
+568. Gestión de configuración por entorno
+569. Secrets management: panorama
+570. Backups y restauración de base
+571. Manejo de incidentes en backend
+572. Observabilidad mínima viable
+573. Alertas útiles vs ruido
+574. Rate limiting y protección del perímetro
+575. Hardening básico de la aplicación
+576. Política de logs en producción
+577. Rotación de logs y retención
+578. Checklist de release
+579. Checklist post-deploy
+580. Rollback plan
+581. Monitorear salud técnica y salud de negocio
+
+Módulo 29 · Temas de proyecto real
+582. Diseñar una API de e-commerce completa
+583. Diseñar una API de autenticación y usuarios
+584. Diseñar una API de órdenes y pagos
+585. Diseñar una API de catálogo y stock
+586. Diseñar una API de comentarios o contenido
+587. Subdominios y módulos en un proyecto grande
+588. Integrar pagos externos a nivel conceptual
+589. Manejo de webhooks de pagos
+590. Idempotencia en creación de órdenes
+591. Consistencia entre stock, orden y pago
+592. Emails transaccionales
+593. Panel admin y endpoints internos
+594. Búsqueda, filtros y paginación compleja
+595. Exportación de reportes
+596. Auditoría y trazabilidad de cambios
+
+Módulo 30 · Cierre y nivel avanzado
+597. Leer la documentación oficial de Spring Boot de punta a punta con criterio
+598. Elegir dependencias sin inflar el proyecto
+599. Detectar sobreingeniería en proyectos Boot
+600. Cuándo no usar Spring Boot
+601. Estrategia para actualizar versiones mayores
+602. Migraciones entre versiones de Spring Boot
+603. Deprecaciones y cambios de comportamiento
+604. Revisión técnica de un proyecto Boot existente
+605. Preparar un proyecto para mantenimiento a largo plazo
+606. Cómo seguir aprendiendo después de este roadmap
+607. Proyecto final: backend real listo para producción
+608. Proyecto final: endurecer seguridad y observabilidad
+609. Proyecto final: tests, contenedores y despliegue
+610. Proyecto final: refactor arquitectónico
+611. Proyecto final: versión avanzada con mensajería o batch

@@ -1,0 +1,133 @@
+---
+//src/pages/cursos/index.astro
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/global.css";
+import TechLogo from "../../components/TechLogo.astro";
+
+const cursos = [
+    {
+        logo: "spring",
+        title: "Spring Boot",
+        description:
+            "Curso complementario orientado a backend moderno con Spring Boot, APIs REST, persistencia, seguridad y despliegue.",
+        href: "/cursos/springboot",
+        status: "Disponible",
+    },
+    {
+        logo: "maven",
+        title: "Maven",
+        description:
+            "Curso complementario orientado a backend moderno con Maven",
+        href: "/cursos/maven",
+        status: "Disponible",
+    },
+    {
+        logo: "docker",
+        title: "Docker",
+        description: "Curso complementario",
+        href: "/cursos/docker",
+        status: "Disponible",
+    },
+    {
+        logo: "flyway",
+        title: "Flyway",
+        description: "Curso complementario",
+        href: "/cursos/flyway",
+        status: "Disponible",
+    },
+    {
+        title: "Próximo",
+        description: "En desarrollo",
+        href: null,
+        status: "Próximamente",
+    },
+];
+---
+
+<BaseLayout
+    title="Otros cursos | Curso de Java"
+    description="Listado de cursos accesorios y complementarios del curso principal de Java."
+>
+    <section class="hero">
+        <div class="container hero__grid">
+            <div>
+                <div class="breadcrumbs">
+                    <a href="/">Inicio</a>
+                    <span>/</span>
+                    <span>Otros cursos</span>
+                </div>
+
+                <h1>Otros cursos</h1>
+                <p class="hero__lead">
+                    Estos cursos complementan el recorrido principal de Java. La
+                    idea es que puedas profundizar tecnologías puntuales sin
+                    mezclar todo en una sola ruta.
+                </p>
+
+                <div class="courses-hero-actions">
+                    <a class="courses-link" href="/#contenido"> Ver Java </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="courses-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Cursos complementarios</h2>
+                <p>
+                    Acá podés agrupar Spring Boot y cualquier otro curso
+                    accesorio que agregues más adelante.
+                </p>
+            </div>
+
+            <div class="courses-grid">
+                {
+                    cursos.map((curso) => (
+                        <article class="card course-card">
+                            <div class="course-card__top">
+                                <span
+                                    class={`course-badge ${curso.status === "Disponible" ? "course-badge--active" : ""}`}
+                                >
+                                    {curso.status}
+                                </span>
+                            </div>
+                            <div style="display: flex; flex-direction: row; align-items: center;">
+                                {(curso.logo === "java" ||
+                                    curso.logo === "spring" ||
+                                    curso.logo === "maven" ||
+                                    curso.logo === "docker" ||
+                                    curso.logo === "flyway") && (
+                                    <TechLogo
+                                        name={curso.logo}
+                                        label={false}
+                                        size={40}
+                                    />
+                                )}
+
+                                <h3>{curso.title}</h3>
+                            </div>
+
+                            <p>{curso.description}</p>
+
+                            <div class="course-card__actions">
+                                {curso.href ? (
+                                    <a
+                                        class="courses-link courses-link--primary"
+                                        href={curso.href}
+                                    >
+                                        Abrir curso
+                                    </a>
+                                ) : (
+                                    <span class="courses-link courses-link--disabled">
+                                        Próximamente
+                                    </span>
+                                )}
+                            </div>
+                        </article>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+</BaseLayout>

@@ -1,0 +1,632 @@
+---
+//src/pages/autotest/[slug].astro
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import autotestsData from "../../data/autotests.json";
+
+type AutoTestAnswer = {
+    text: string;
+    isCorrect: boolean;
+};
+
+type AutoTestQuestion = {
+    id: string;
+    prompt: string;
+    explanation?: string;
+    answers: AutoTestAnswer[];
+};
+
+type AutoTestTopic = {
+    title: string;
+    description?: string;
+    passingScore?: number;
+    questions: AutoTestQuestion[];
+};
+
+type AutoTestsMap = Record<string, AutoTestTopic>;
+
+export function getStaticPaths() {
+    const autotests = autotestsData as AutoTestsMap;
+
+    return Object.entries(autotests).map(([slug, test]) => ({
+        params: { slug },
+        props: { slug, test },
+    }));
+}
+
+const { slug, test } = Astro.props as {
+    slug: string;
+    test: AutoTestTopic;
+};
+
+const pageTitle = `${test.title} | Curso de Java`;
+const pageDescription =
+    test.description ??
+    `Autoevaluación del tema ${slug} para medir comprensión y repaso.`;
+
+const serializedPayload = JSON.stringify({
+    slug,
+    test,
+});
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+    <section class="topic-page autotest-page">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="/">Inicio</a>
+                <span>/</span>
+                <a href="/#temas">Temas</a>
+                <span>/</span>
+                <span>{slug}</span>
+                <span>/</span>
+                <span>autotest</span>
+            </div>
+
+            <header class="autotest-hero card">
+                <div class="autotest-hero__content">
+                    <span class="pill">Autotest</span>
+                    <h1 class="autotest-h1">{test.title}</h1>
+
+                    <p class="hero__lead">
+                        {
+                            test.description ??
+                                "Respondé las preguntas y obtené una devolución automática al final."
+                        }
+                    </p>
+
+                    <div class="autotest-hero__meta">
+                        <span class="pill"
+                            >{test.questions.length} preguntas</span
+                        >
+                        <span class="pill">
+                            Nota mínima sugerida: {test.passingScore ?? 70}%
+                        </span>
+                    </div>
+                </div>
+            </header>
+
+            <form class="autotest-form" data-autotest-form novalidate>
+                {
+                    test.questions.map((question, questionIndex) => (
+                        <fieldset
+                            class="autotest-question card"
+                            data-question-card
+                        >
+                            <legend class="autotest-question__legend">
+                                <span class="pill">
+                                    Pregunta {questionIndex + 1}
+                                </span>
+                                <h2>{question.prompt}</h2>
+                            </legend>
+
+                            <div class="autotest-options">
+                                {question.answers.map((answer, answerIndex) => (
+                                    <label class="autotest-option">
+                                        <input
+                                            type="radio"
+                                            name={`q-${questionIndex}`}
+                                            value={String(answerIndex)}
+                                        />
+                                        <span class="autotest-option__ui">
+                                            <span
+                                                class="autotest-option__marker"
+                                                aria-hidden="true"
+                                            />
+                                            <span>{answer.text}</span>
+                                        </span>
+                                    </label>
+                                ))}
+                            </div>
+                        </fieldset>
+                    ))
+                }
+
+                <div class="autotest-actions">
+                    <button type="submit" class="button">
+                        Corregir autoevaluación
+                    </button>
+
+                    <button
+                        type="button"
+                        class="button-secondary"
+                        data-reset-button
+                    >
+                        Reiniciar respuestas
+                    </button>
+                    <a href=`/temas/${slug}` class="button-secondary"
+                        >Ir al tema</a
+                    >
+                </div>
+            </form>
+
+            <section
+                class="autotest-report card"
+                data-report
+                hidden
+                aria-live="polite"
+            >
+                <div data-report-summary></div>
+                <div class="autotest-report__details" data-report-details></div>
+            </section>
+        </div>
+    </section>
+
+    <script
+        id="autotest-data"
+        type="application/json"
+        set:html={serializedPayload}
+    />
+
+    <script is:inline>
+        (() => {
+            const dataElement = document.getElementById("autotest-data");
+            const form = document.querySelector("[data-autotest-form]");
+            const report = document.querySelector("[data-report]");
+            const reportSummary = document.querySelector(
+                "[data-report-summary]",
+            );
+            const reportDetails = document.querySelector(
+                "[data-report-details]",
+            );
+            const resetButton = document.querySelector("[data-reset-button]");
+
+            if (
+                !(dataElement instanceof HTMLScriptElement) ||
+                !(form instanceof HTMLFormElement) ||
+                !(report instanceof HTMLElement) ||
+                !(reportSummary instanceof HTMLElement) ||
+                !(reportDetails instanceof HTMLElement) ||
+                !(resetButton instanceof HTMLButtonElement)
+            ) {
+                return;
+            }
+
+            let payload;
+
+            try {
+                payload = JSON.parse(dataElement.textContent ?? "{}");
+            } catch (error) {
+                console.error(
+                    "No se pudo leer la configuración del autotest.",
+                    error,
+                );
+                return;
+            }
+
+            const test = payload?.test;
+
+            if (!test || !Array.isArray(test.questions)) {
+                console.error("El autotest no tiene una estructura válida.");
+                return;
+            }
+
+            const passingScore =
+                typeof test.passingScore === "number" ? test.passingScore : 70;
+
+            const questionCards = Array.from(
+                form.querySelectorAll("[data-question-card]"),
+            );
+
+            function escapeHtml(value) {
+                return String(value)
+                    .replaceAll("&", "&amp;")
+                    .replaceAll("<", "&lt;")
+                    .replaceAll(">", "&gt;")
+                    .replaceAll('"', "&quot;")
+                    .replaceAll("'", "&#039;");
+            }
+
+            function clearQuestionStates() {
+                questionCards.forEach((card) => {
+                    card.classList.remove(
+                        "is-correct",
+                        "is-incorrect",
+                        "is-unanswered",
+                    );
+                });
+            }
+
+            function getFeedback(percent) {
+                if (percent >= 90) {
+                    return {
+                        label: "Excelente",
+                        message:
+                            "Dominás muy bien este tema. Podés seguir con el próximo o profundizar con ejercicios.",
+                    };
+                }
+
+                if (percent >= passingScore) {
+                    return {
+                        label: "Aprobado",
+                        message:
+                            "Buen trabajo. Tenés una base sólida, aunque todavía hay algunos puntos para reforzar.",
+                    };
+                }
+
+                if (percent >= 50) {
+                    return {
+                        label: "En proceso",
+                        message:
+                            "Vas bien, pero todavía conviene repasar antes de seguir avanzando.",
+                    };
+                }
+
+                return {
+                    label: "Repasar",
+                    message:
+                        "Conviene volver al tema, releer los conceptos y después repetir la autoevaluación.",
+                };
+            }
+
+            function renderSummary(result) {
+                const feedback = getFeedback(result.percent);
+
+                reportSummary.innerHTML = `
+          <div class="autotest-report__summary-top">
+            <span class="pill">${escapeHtml(feedback.label)}</span>
+            <h2>${result.percent}% de aciertos</h2>
+          </div>
+
+          <p>${escapeHtml(feedback.message)}</p>
+
+          <div class="autotest-stats">
+            <div class="autotest-stat">
+              <strong>Correctas:</strong> ${result.correctCount} / ${result.total}
+            </div>
+            <div class="autotest-stat">
+              <strong>Respondidas:</strong> ${result.answeredCount} / ${result.total}
+            </div>
+            <div class="autotest-stat">
+              <strong>Objetivo:</strong> ${passingScore}%
+            </div>
+          </div>
+        `;
+            }
+
+            function renderDetails(details) {
+                reportDetails.innerHTML = details
+                    .map((detail, index) => {
+                        const stateClass =
+                            detail.state === "correct"
+                                ? "autotest-result-card--correct"
+                                : detail.state === "incorrect"
+                                  ? "autotest-result-card--incorrect"
+                                  : "autotest-result-card--unanswered";
+
+                        const selectedText =
+                            detail.selectedIndex === null
+                                ? "Sin responder"
+                                : (test.questions[index].answers[
+                                      detail.selectedIndex
+                                  ]?.text ?? "Sin responder");
+
+                        const correctText =
+                            test.questions[index].answers[detail.correctIndex]
+                                ?.text ?? "No configurada";
+
+                        const explanation = test.questions[index].explanation
+                            ? `<p><strong>Explicación:</strong> ${escapeHtml(
+                                  test.questions[index].explanation,
+                              )}</p>`
+                            : "";
+
+                        return `
+              <article class="autotest-result-card ${stateClass}">
+                <h3>Pregunta ${index + 1}</h3>
+                <p><strong>Enunciado:</strong> ${escapeHtml(
+                    test.questions[index].prompt,
+                )}</p>
+                <p><strong>Tu respuesta:</strong> ${escapeHtml(selectedText)}</p>
+                <p><strong>Respuesta correcta:</strong> ${escapeHtml(correctText)}</p>
+                ${explanation}
+              </article>
+            `;
+                    })
+                    .join("");
+            }
+
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                clearQuestionStates();
+
+                const formData = new FormData(form);
+
+                const details = test.questions.map(
+                    (question, questionIndex) => {
+                        const rawSelected = formData.get(`q-${questionIndex}`);
+
+                        const selectedIndex =
+                            rawSelected === null ? null : Number(rawSelected);
+
+                        const correctIndex = question.answers.findIndex(
+                            (answer) => answer.isCorrect === true,
+                        );
+
+                        const isCorrect =
+                            selectedIndex !== null &&
+                            correctIndex !== -1 &&
+                            selectedIndex === correctIndex;
+
+                        const state =
+                            selectedIndex === null
+                                ? "unanswered"
+                                : isCorrect
+                                  ? "correct"
+                                  : "incorrect";
+
+                        const card = questionCards[questionIndex];
+
+                        if (card instanceof HTMLElement) {
+                            if (state === "correct") {
+                                card.classList.add("is-correct");
+                            } else if (state === "incorrect") {
+                                card.classList.add("is-incorrect");
+                            } else {
+                                card.classList.add("is-unanswered");
+                            }
+                        }
+
+                        return {
+                            state,
+                            selectedIndex,
+                            correctIndex,
+                            isCorrect,
+                        };
+                    },
+                );
+
+                const total = test.questions.length;
+                const correctCount = details.filter(
+                    (item) => item.isCorrect,
+                ).length;
+                const answeredCount = details.filter(
+                    (item) => item.selectedIndex !== null,
+                ).length;
+                const percent =
+                    total === 0 ? 0 : Math.round((correctCount / total) * 100);
+
+                renderSummary({
+                    total,
+                    correctCount,
+                    answeredCount,
+                    percent,
+                });
+
+                renderDetails(details);
+
+                report.hidden = false;
+                report.removeAttribute("hidden");
+
+                requestAnimationFrame(() => {
+                    report.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                    });
+                });
+            });
+
+            resetButton.addEventListener("click", () => {
+                form.reset();
+                clearQuestionStates();
+                report.hidden = true;
+                report.setAttribute("hidden", "");
+                reportSummary.innerHTML = "";
+                reportDetails.innerHTML = "";
+            });
+        })();
+    </script>
+
+    <style>
+        .autotest-h1 {
+            font-size: 2rem;
+        }
+
+        .autotest-page {
+            padding-top: 2.2rem;
+        }
+
+        .autotest-hero {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .autotest-hero__content {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .autotest-hero__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .autotest-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .autotest-question {
+            padding: 1.25rem;
+            margin: 0;
+        }
+
+        .autotest-question__legend {
+            width: 100%;
+            padding: 0;
+            margin-bottom: 1rem;
+            border: 0;
+        }
+
+        .autotest-question__legend h2 {
+            margin-top: 0.85rem;
+            margin-bottom: 0;
+            font-size: 1.25rem;
+        }
+
+        .autotest-options {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .autotest-option {
+            display: block;
+            cursor: pointer;
+        }
+
+        .autotest-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .autotest-option__ui {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            width: 100%;
+            padding: 0.95rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.025);
+            color: var(--muted);
+            transition:
+                border-color 0.18s ease,
+                background-color 0.18s ease,
+                color 0.18s ease,
+                transform 0.18s ease;
+        }
+
+        .autotest-option:hover .autotest-option__ui {
+            transform: translateY(-1px);
+            border-color: rgba(110, 168, 254, 0.35);
+            color: var(--text);
+        }
+
+        .autotest-option__marker {
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+            margin-top: 0.15rem;
+            border-radius: 999px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+            transition:
+                border-color 0.18s ease,
+                background-color 0.18s ease,
+                box-shadow 0.18s ease;
+        }
+
+        .autotest-option input:checked + .autotest-option__ui {
+            border-color: var(--accent);
+            background: rgba(110, 168, 254, 0.12);
+            color: var(--text);
+        }
+
+        .autotest-option
+            input:checked
+            + .autotest-option__ui
+            .autotest-option__marker {
+            border-color: var(--accent);
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(110, 168, 254, 0.18);
+        }
+
+        .autotest-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .autotest-report {
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .autotest-report__summary-top {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .autotest-report__summary-top h2 {
+            margin: 0;
+        }
+
+        .autotest-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .autotest-stat {
+            padding: 0.7rem 0.9rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.025);
+            color: var(--text);
+        }
+
+        .autotest-report__details {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .autotest-result-card {
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .autotest-result-card h3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .autotest-result-card--correct {
+            border-color: rgba(45, 212, 191, 0.5);
+        }
+
+        .autotest-result-card--incorrect {
+            border-color: rgba(248, 113, 113, 0.45);
+        }
+
+        .autotest-result-card--unanswered {
+            border-color: rgba(250, 204, 21, 0.45);
+        }
+
+        .autotest-question.is-correct {
+            border-color: rgba(45, 212, 191, 0.55);
+        }
+
+        .autotest-question.is-incorrect {
+            border-color: rgba(248, 113, 113, 0.45);
+        }
+
+        .autotest-question.is-unanswered {
+            border-color: rgba(250, 204, 21, 0.45);
+        }
+
+        .autotest-result-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 920px) {
+            .autotest-hero,
+            .autotest-question,
+            .autotest-report {
+                padding: 1rem;
+            }
+
+            .autotest-question__legend h2 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</BaseLayout>

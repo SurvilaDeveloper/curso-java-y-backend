@@ -1,0 +1,399 @@
+Módulo 1 · Fundamentos de Spring y Spring Boot
+1. Qué es Spring Framework y qué problema resuelve
+2. Qué es Spring Boot y por qué acelera el desarrollo
+3. Diferencias entre Spring, Spring Boot y el ecosistema Spring
+4. Conceptos base: contenedor IoC, beans e inyección de dependencias
+5. Auto-configuración, convenciones y starters
+6. Anatomía de una aplicación Spring Boot
+
+Módulo 2 · Primer arranque del proyecto
+7. Spring Initializr y creación del primer proyecto
+8. Estructura típica de carpetas en un proyecto Spring Boot
+9. Clase principal con @SpringBootApplication
+10. Ejecución desde IDE, Maven, Gradle y jar ejecutable
+11. DevTools, recarga y ciclo de desarrollo
+12. Lectura inicial de logs al arrancar la aplicación
+
+Módulo 3 · Dependencias, build y organización del proyecto
+13. Uso de starters y criterio para elegir dependencias
+14. Maven en proyectos Spring Boot
+15. Gradle en proyectos Spring Boot
+16. Gestión de versiones y compatibilidades
+17. Separación por capas y organización del código
+18. Estrategias para escalar la estructura del proyecto
+
+Módulo 4 · Beans, configuración e inyección de dependencias
+19. Component scanning y detección automática de componentes
+20. @Component, @Service, @Repository y @Controller
+21. Inyección por constructor y mejores prácticas
+22. @Configuration y métodos @Bean
+23. Ciclo de vida de un bean y orden de inicialización
+24. Scopes, dependencias opcionales y condicionales
+
+Módulo 5 · Configuración externa y perfiles
+25. application.properties vs application.yml
+26. Jerarquía y fuentes de configuración en Spring Boot
+27. @Value y @ConfigurationProperties
+28. Perfiles de entorno: dev, test, prod
+29. Variables de entorno, argumentos de arranque y secretos
+30. Estrategias para configuración limpia y mantenible
+
+Módulo 6 · Web MVC con Spring Boot
+31. spring-boot-starter-web y stack servlet
+32. @RestController y mapeo de endpoints
+33. @RequestMapping y variantes HTTP
+34. @PathVariable, @RequestParam y @RequestBody
+35. ResponseEntity, status codes y respuestas correctas
+36. Serialización y deserialización JSON con Jackson
+
+Módulo 7 · Diseño de APIs con criterio profesional
+37. Estructura de una API REST mantenible en Spring Boot
+38. Convenciones de rutas, recursos y nombres
+39. DTOs de entrada y salida
+40. Paginación, ordenamiento y filtros desde el backend
+41. Versionado de APIs y compatibilidad
+42. Buenas prácticas para contratos de API
+
+Módulo 8 · Validación, errores y respuestas consistentes
+43. Bean Validation en Spring Boot
+44. @Valid, @Validated y restricciones frecuentes
+45. Validación en request DTOs y parámetros
+46. @ControllerAdvice y manejo global de excepciones
+47. Diseño de errores consistentes para APIs
+48. Tratamiento de errores de negocio, validación y sistema
+
+Módulo 9 · Conversión de datos y capa de aplicación
+49. Separación entre entidades, DTOs y modelos internos
+50. Mapeo manual y estrategias de conversión
+51. Uso de MapStruct en proyectos Spring Boot
+52. Servicios de aplicación y coordinación de casos de uso
+53. Reglas de negocio y orquestación entre capas
+54. Diseño de servicios simples, claros y testeables
+
+Módulo 10 · Persistencia con Spring Data JPA
+55. Introducción a JPA, Hibernate y Spring Data JPA
+56. Configuración de datasource y conexión a base de datos
+57. Entidades, tablas, claves primarias e identificadores
+58. JpaRepository y operaciones CRUD
+59. Consultas derivadas por nombre de método
+60. Primer CRUD persistido con Spring Boot
+
+Módulo 11 · Modelado relacional y relaciones entre entidades
+61. Relaciones @OneToOne, @OneToMany y @ManyToOne
+62. Relaciones @ManyToMany y cuándo evitarlas
+63. Cascadas, orphanRemoval y consistencia del modelo
+64. FetchType, carga lazy y eager
+65. Problema N+1 y cómo detectarlo
+66. Modelado práctico de dominio para aplicaciones reales
+
+Módulo 12 · Consultas avanzadas, transacciones y rendimiento
+67. @Query, JPQL y consultas personalizadas
+68. Specifications, Criteria y consultas dinámicas
+69. Paginación y sorting con JPA
+70. @Transactional y límites transaccionales
+71. Locking optimista y pesimista
+72. Optimización de rendimiento con JPA e Hibernate
+
+Módulo 13 · Migraciones y evolución del esquema
+73. Por qué usar migraciones en proyectos reales
+74. Flyway en aplicaciones Spring Boot
+75. Liquibase en aplicaciones Spring Boot
+76. Estrategias para versionar cambios de base de datos
+77. Datos iniciales, seed y entornos de desarrollo
+78. Buenas prácticas para evolución segura del esquema
+
+Módulo 14 · Testing en Spring Boot
+79. Estrategia de testing por capas
+80. Tests unitarios de servicios y componentes
+81. Mockito y reemplazo de dependencias
+82. @SpringBootTest y tests de integración
+83. @WebMvcTest, MockMvc y tests de controladores
+84. @DataJpaTest y pruebas de persistencia
+
+Módulo 15 · Testing avanzado y calidad del código
+85. Tests con bases de datos reales o embebidas
+86. Testcontainers para integración reproducible
+87. Pruebas de contratos y endpoints críticos
+88. Cobertura de código y qué significa realmente
+89. Tests de regresión para reglas de negocio
+90. Estrategias de calidad para proyectos mantenibles
+
+Módulo 16 · Seguridad con Spring Security desde cero
+91. Qué es Spring Security y cómo intercepta requests
+92. Autenticación y autorización en el stack Spring
+93. SecurityFilterChain y configuración moderna
+94. Usuarios en memoria y primeras restricciones
+95. PasswordEncoder y almacenamiento seguro de credenciales
+96. Roles, authorities y protección de endpoints
+
+Módulo 17 · Seguridad para APIs reales
+97. Login en APIs y manejo de sesión
+98. Autenticación stateless con JWT
+99. Filtros propios y validación de tokens
+100. Refresh tokens y expiración controlada
+101. Configuración de CORS y CSRF según el tipo de aplicación
+102. Manejo de errores de autenticación y autorización
+
+Módulo 18 · Seguridad avanzada e integración con identidad
+103. OAuth2 y OpenID Connect en Spring Boot
+104. Resource Server con JWT externos
+105. Login social e integración con proveedores de identidad
+106. Method Security y restricciones por anotaciones
+107. Multitenancy y seguridad por contexto
+108. Buenas prácticas de seguridad en producción
+
+Módulo 19 · Documentación y experiencia de consumo de API
+109. OpenAPI y documentación automática
+110. Springdoc OpenAPI en proyectos Boot
+111. Swagger UI para exploración de endpoints
+112. Documentación de errores, paginación y autenticación
+113. Ejemplos reales de requests y responses
+114. Estrategias para mantener la documentación actualizada
+
+Módulo 20 · Archivos, contenido y entrada/salida de datos
+115. Subida de archivos con MultipartFile
+116. Validación y límites para archivos entrantes
+117. Descarga y streaming de archivos
+118. Procesamiento de CSV, Excel o contenido masivo
+119. Serialización personalizada con Jackson
+120. Tratamiento de fechas, zonas horarias y formatos
+
+Módulo 21 · Observabilidad y operación de la aplicación
+121. Logging estructurado y niveles de log
+122. Actuator y endpoints de administración
+123. Health checks, readiness y liveness
+124. Métricas con Micrometer
+125. Trazas, correlación y diagnóstico de problemas
+126. Exposición segura de endpoints operativos
+
+Módulo 22 · Caché, asincronía y tareas programadas
+127. Conceptos de caché en Spring Boot
+128. Spring Cache y estrategias básicas
+129. Integración con Redis para caché
+130. @Async y ejecución asíncrona
+131. @Scheduled y tareas programadas
+132. Coordinación entre trabajos, caché y consistencia
+
+Módulo 23 · Eventos y comunicación interna
+133. Eventos de aplicación en Spring
+134. Publicación y escucha de eventos de dominio
+135. @TransactionalEventListener y consistencia transaccional
+136. Desacople entre módulos usando eventos
+137. Patrones para side effects dentro de la aplicación
+138. Cuándo usar eventos y cuándo no
+
+Módulo 24 · Integración con sistemas externos
+139. Consumo de APIs HTTP desde Spring Boot
+140. RestClient, WebClient y clientes HTTP modernos
+141. Retries, timeouts y manejo de fallos
+142. Autenticación hacia servicios externos
+143. Integración con servicios de email y notificaciones
+144. Adaptadores para sistemas externos en arquitectura limpia
+
+Módulo 25 · Mensajería y procesamiento asíncrono distribuido
+145. Introducción a mensajería en aplicaciones Spring
+146. RabbitMQ con Spring Boot
+147. Kafka con Spring Boot
+148. Productores, consumidores y manejo de errores
+149. Idempotencia y reintentos en procesamiento de mensajes
+150. Patrones de integración basados en eventos
+
+Módulo 26 · WebFlux y programación reactiva
+151. Qué es Spring WebFlux y cuándo conviene usarlo
+152. Diferencias entre MVC y WebFlux
+153. Mono, Flux y fundamentos reactivos en Spring
+154. Controladores reactivos y acceso reactivo a datos
+155. WebClient reactivo e integración no bloqueante
+156. Casos reales donde WebFlux aporta valor
+
+Módulo 27 · Batch y procesamiento por lotes
+157. Qué es Spring Batch y para qué se usa
+158. Jobs, steps y readers/processors/writers
+159. Procesamiento chunk-oriented
+160. Control de errores y reintentos en batch
+161. Persistencia del estado de ejecución
+162. Casos de uso reales de procesamiento por lotes
+
+Módulo 28 · Modularización y arquitectura interna
+163. Monolito modular con Spring Boot
+164. Separación por paquetes, capas y módulos
+165. Arquitectura hexagonal aplicada a Spring Boot
+166. Caso de uso, dominio e infraestructura
+167. Bounded contexts dentro de una misma aplicación
+168. Estrategias para evitar acoplamiento interno
+
+Módulo 29 · Patrones de diseño para backends Spring Boot
+169. Factories, strategies y adapters en servicios Spring
+170. Decorators, chain of responsibility y composición
+171. Patrón specification para reglas y filtros
+172. Patrón outbox y consistencia entre base y eventos
+173. Sagas y coordinación distribuida a nivel conceptual
+174. Selección de patrones según el problema real
+
+Módulo 30 · Microservicios con Spring Boot
+175. Cuándo pasar de monolito a microservicios
+176. Diseño de servicios pequeños con límites claros
+177. Configuración compartida y discovery a nivel conceptual
+178. Comunicación síncrona y asíncrona entre servicios
+179. Resiliencia, timeouts y manejo de fallos distribuidos
+180. Costos reales y trade-offs de microservicios
+
+Módulo 31 · Spring Cloud y ecosistema distribuido
+181. Panorama general de Spring Cloud
+182. Config Server y configuración centralizada
+183. Service Discovery con Eureka a nivel conceptual y práctico
+184. Gateway para entrada unificada al sistema
+185. Feign clients y comunicación declarativa
+186. Resilience4j y tolerancia a fallos
+
+Módulo 32 · Persistencia avanzada y escenarios complejos
+187. Múltiples datasources en una misma aplicación
+188. Lectura y escritura separadas
+189. Auditoría con Spring Data
+190. Soft delete, filtros globales y registros históricos
+191. Multitenancy a nivel base de datos o esquema
+192. Estrategias para consistencia en dominios complejos
+
+Módulo 33 · Búsqueda, indexación y consultas especializadas
+193. Cuándo salir de JPA para búsquedas complejas
+194. Integración con Elasticsearch u otros motores
+195. Full-text search y criterios de relevancia
+196. Sincronización entre base relacional e índice de búsqueda
+197. Consultas analíticas y reportes pesados
+198. Criterios para elegir tecnología de búsqueda
+
+Módulo 34 · API avanzada y diseño de entrada/salida
+199. HATEOAS y cuándo tiene sentido usarlo
+200. Manejo avanzado de paginación y colecciones
+201. Estrategias de filtrado complejas
+202. PATCH, actualizaciones parciales y merge seguro
+203. Idempotencia en endpoints críticos
+204. Webhooks y exposición controlada de eventos
+
+Módulo 35 · Manejo avanzado de errores y resiliencia
+205. Jerarquías de excepciones bien diseñadas
+206. Errores funcionales vs errores técnicos
+207. Retries, circuit breakers y bulkheads
+208. Dead letter queues y recuperación de fallos
+209. Fallbacks y degradación controlada
+210. Estrategias para sistemas robustos en producción
+
+Módulo 36 · Frontends, plantillas y casos no puramente API
+211. Spring Boot con Thymeleaf
+212. Controladores MVC con vistas renderizadas
+213. Formularios, binding y validación en servidor
+214. Subida de archivos en aplicaciones con vistas
+215. Integración con frontends SPA
+216. Separación entre backend renderizado y backend API
+
+Módulo 37 · Seguridad de datos y cumplimiento
+217. Cifrado de información sensible
+218. Protección de secretos y credenciales
+219. Auditoría de acciones de usuario
+220. Buenas prácticas para datos personales
+221. Retención, trazabilidad y compliance a nivel aplicación
+222. Seguridad defensiva aplicada a backends Spring Boot
+
+Módulo 38 · Docker y contenedorización
+223. Empaquetado de Spring Boot en contenedores
+224. Dockerfile para aplicaciones Boot
+225. Optimización de imágenes y capas
+226. Docker Compose para entornos locales
+227. Servicios auxiliares: base, caché, broker y observabilidad
+228. Estrategias para desarrollo reproducible
+
+Módulo 39 · Despliegue y operación en entornos reales
+229. Perfiles y variables de entorno en producción
+230. Despliegue en VPS, PaaS y cloud
+231. Logs, métricas y debugging remoto
+232. Estrategias blue-green y rolling updates
+233. Configuración de reverse proxy y HTTPS
+234. Checklist de salida a producción
+
+Módulo 40 · CI/CD para proyectos Spring Boot
+235. Build automatizado en pipelines
+236. Tests y validaciones en integración continua
+237. Análisis estático y quality gates
+238. Empaquetado y versionado automático
+239. Despliegue continuo con rollback
+240. Buenas prácticas de delivery para equipos
+
+Módulo 41 · Native images, AOT y performance de arranque
+241. Qué es AOT en Spring Boot
+242. Introducción a GraalVM y native images
+243. Ventajas y límites de compilar a nativo
+244. Configuraciones necesarias para compatibilidad
+245. Casos de uso donde native image tiene sentido
+246. Comparación entre jar tradicional y build nativo
+
+Módulo 42 · Observabilidad avanzada y troubleshooting
+247. Micrometer avanzado y exportación de métricas
+248. Trazabilidad distribuida y correlación entre servicios
+249. OpenTelemetry en aplicaciones Spring Boot
+250. Diagnóstico de cuellos de botella
+251. Análisis de memory leaks, threads y conexiones
+252. Estrategias de troubleshooting en producción
+
+Módulo 43 · Proyecto empresarial y arquitectura de largo plazo
+253. Diseño de un backend empresarial completo con Spring Boot
+254. Módulos funcionales, seguridad, datos y observabilidad integrados
+255. Estrategia de crecimiento del código y del dominio
+256. Refactorización de un proyecto Boot a medida que escala
+257. Deuda técnica, convenciones y gobierno del proyecto
+258. Criterios para decidir qué avanzado sí incorporar y qué no
+
+Módulo 44 · Casos especiales y extensibilidad del framework
+259. Auto-configuración propia en Spring Boot
+260. Starter personalizado para reutilización interna
+261. Condiciones con @Conditional y configuración modular
+262. Listeners, hooks y puntos de extensión del framework
+263. Customización profunda del arranque de la aplicación
+264. Cuándo extender Spring Boot y cuándo mantenerlo simple
+
+Módulo 45 · Spring Boot para entornos complejos
+265. Aplicaciones multi-módulo con Maven o Gradle
+266. Compartir librerías internas entre proyectos
+267. Estrategias de versionado de componentes internos
+268. Separación entre librerías comunes y código de negocio
+269. Integración entre varios servicios de una misma plataforma
+270. Organización de un ecosistema de backends Spring Boot
+
+Módulo 46 · Persistencia no relacional y escenarios mixtos
+271. Integración con MongoDB en Spring Boot
+272. Cuándo usar documentos en lugar de tablas
+273. Repositorios Spring Data para bases no relacionales
+274. Escenarios polyglot persistence
+275. Coexistencia entre SQL, caché y almacenamiento documental
+276. Criterios arquitectónicos para elegir persistencia
+
+Módulo 47 · Comunicación en tiempo real
+277. WebSockets con Spring Boot
+278. Mensajería STOMP sobre WebSocket
+279. Server-Sent Events en aplicaciones Spring
+280. Casos de uso de tiempo real en backends empresariales
+281. Escalabilidad y estado en conexiones persistentes
+282. Seguridad y observabilidad en tiempo real
+
+Módulo 48 · Gobernanza técnica y mantenibilidad
+283. Convenciones de código en equipos Spring Boot
+284. Estrategias de logging, naming y estructura compartida
+285. Gestión de errores y respuestas uniformes a nivel organización
+286. Documentación técnica interna del proyecto
+287. Versionado y compatibilidad hacia atrás
+288. Prácticas para mantener un backend vivo durante años
+
+Módulo 49 · Preparación para entrevistas y criterio profesional
+289. Preguntas frecuentes sobre Spring Boot
+290. Cómo explicar auto-configuración e IoC con claridad
+291. Cómo justificar decisiones de arquitectura en un proyecto Boot
+292. Errores comunes al aprender Spring Boot
+293. Checklist de competencias para un perfil backend Spring
+294. Cómo pasar de tutoriales a proyectos serios
+
+Módulo 50 · Proyecto final de Spring Boot avanzado
+295. Definición del alcance de un proyecto final integral
+296. Arquitectura, módulos y decisiones técnicas del proyecto
+297. Implementación incremental por capas y funcionalidades
+298. Testing, seguridad, observabilidad y despliegue del proyecto
+299. Optimización, endurecimiento y revisión final
+300. Presentación profesional del proyecto y próximos pasos

@@ -1,0 +1,301 @@
+---
+import TopicCard from "./TopicCard.astro";
+
+// 👇 tipo de cada tema (entry de content collection)
+type Tema = {
+    id: string;
+    data: {
+        title: string;
+        description: string;
+        module: string;
+        level: string;
+        order: number;
+    };
+};
+
+// 👇 props del componente
+type Props = {
+    temas: Tema[];
+    modules: [string, Tema[]][];
+    basePath?: string;
+};
+
+const { temas, modules, basePath = "" } = Astro.props as Props;
+---
+
+<section id="contenido">
+    <div class="container">
+        <div class="section-title">
+            <h2>Explorar contenido</h2>
+            <p>Elegí cómo querés ver este roadmap.</p>
+        </div>
+
+        <div class="view-switcher" id="view-switcher">
+            <button
+                type="button"
+                class="view-switcher__button is-active"
+                data-target="ruta-panel"
+                aria-pressed="true"
+            >
+                Ruta
+            </button>
+
+            <button
+                type="button"
+                class="view-switcher__button"
+                data-target="temas-panel"
+                aria-pressed="false"
+            >
+                Temas
+            </button>
+
+            <button
+                type="button"
+                class="view-switcher__button"
+                data-target="tabla-panel"
+                aria-pressed="false"
+            >
+                Tabla
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- RUTA -->
+<section id="ruta-panel" data-panel class="content-panel">
+    <div class="container">
+        <div class="section-title">
+            <h2>Ruta sugerida</h2>
+        </div>
+
+        <div class="module-list">
+            {
+                modules.map(([module, entries]) => (
+                    <article class="card module-card">
+                        <h3>{module}</h3>
+                        <p>{entries.length} tema(s)</p>
+
+                        <div class="module-card__topics">
+                            {entries.map((entry) => (
+                                <a
+                                    class="pill"
+                                    href={`${basePath}/${entry.id}`}
+                                >
+                                    {entry.data.title}
+                                </a>
+                            ))}
+                        </div>
+                    </article>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<!-- TEMAS -->
+<section id="temas-panel" data-panel class="content-panel" hidden>
+    <div class="container">
+        <div class="section-title">
+            <h2>Temas</h2>
+        </div>
+
+        <div class="topics-grid">
+            {
+                temas.map((tema) => (
+                    <TopicCard
+                        href={`${basePath}/${tema.id}`}
+                        title={tema.data.title}
+                        description={tema.data.description}
+                        module={tema.data.module}
+                        level={tema.data.level}
+                        order={tema.data.order}
+                    />
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<!-- TABLA -->
+<section id="tabla-panel" data-panel class="content-panel" hidden>
+    <div class="container">
+        <div class="section-title">
+            <h2>Tabla de temas</h2>
+            <p>Vista rápida para recorrer todo el curso.</p>
+        </div>
+
+        <div class="card table-card">
+            <div class="table-wrap">
+                <table class="topics-table">
+                    <thead>
+                        <tr>
+                            <th>Orden</th>
+                            <th>Módulo</th>
+                            <th>Título</th>
+                            <th>Nivel</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {
+                            temas.map((tema) => (
+                                <tr>
+                                    <td class="topics-table__order">
+                                        {tema.data.order}
+                                    </td>
+                                    <td>{tema.data.module}</td>
+                                    <td>
+                                        <a href={`${basePath}/${tema.id}`}>
+                                            {tema.data.title}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span class="topics-table__level">
+                                            {tema.data.level}
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script is:inline>
+    const STORAGE_KEY = "course-view";
+    const TRANSITION_MS = 240;
+
+    const buttons = Array.from(document.querySelectorAll("[data-target]"));
+    const panels = Array.from(document.querySelectorAll("[data-panel]"));
+
+    let activePanelId = "ruta-panel";
+    let isTransitioning = false;
+
+    function setActiveButton(panelId) {
+        buttons.forEach((button) => {
+            const isActive = button.dataset.target === panelId;
+            button.setAttribute("aria-pressed", isActive ? "true" : "false");
+            button.classList.toggle("is-active", isActive);
+        });
+    }
+
+    function savePanel(panelId) {
+        try {
+            localStorage.setItem(STORAGE_KEY, panelId);
+        } catch {}
+    }
+
+    function preparePanels(panelId) {
+        panels.forEach((panel) => {
+            const isCurrent = panel.id === panelId;
+            panel.hidden = !isCurrent;
+            panel.classList.remove("is-entering", "is-leaving", "is-active");
+            if (isCurrent) panel.classList.add("is-active");
+        });
+    }
+
+    function animateIn(panel) {
+        panel.hidden = false;
+        panel.classList.remove("is-leaving");
+        panel.classList.add("is-active", "is-entering");
+
+        requestAnimationFrame(() => {
+            panel.classList.remove("is-entering");
+        });
+    }
+
+    function animateOut(panel) {
+        panel.classList.remove("is-entering", "is-active");
+        panel.classList.add("is-leaving");
+    }
+
+    function showPanel(panelId, { immediate = false } = {}) {
+        if (!panelId || isTransitioning) return;
+        if (panelId === activePanelId && !immediate) return;
+
+        const nextPanel = document.getElementById(panelId);
+        const currentPanel = document.getElementById(activePanelId);
+
+        if (!nextPanel) return;
+
+        setActiveButton(panelId);
+        savePanel(panelId);
+
+        if (immediate || !currentPanel || currentPanel === nextPanel) {
+            preparePanels(panelId);
+            activePanelId = panelId;
+            return;
+        }
+
+        isTransitioning = true;
+
+        animateOut(currentPanel);
+
+        window.setTimeout(() => {
+            currentPanel.hidden = true;
+            currentPanel.classList.remove("is-leaving");
+
+            animateIn(nextPanel);
+            activePanelId = panelId;
+
+            window.setTimeout(() => {
+                nextPanel.classList.remove("is-entering");
+                isTransitioning = false;
+            }, TRANSITION_MS);
+        }, TRANSITION_MS);
+    }
+
+    function getValidPanelId(panelId) {
+        if (!panelId) return null;
+
+        const panelExists = document.getElementById(panelId);
+        const buttonExists = document.querySelector(
+            `[data-target="${panelId}"]`,
+        );
+
+        return panelExists && buttonExists ? panelId : null;
+    }
+
+    function getPanelFromHash() {
+        const hash = window.location.hash?.replace("#", "");
+        return getValidPanelId(hash);
+    }
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const panelId = button.dataset.target;
+            showPanel(panelId);
+
+            if (history.replaceState && panelId) {
+                history.replaceState(null, "", `#${panelId}`);
+            }
+        });
+    });
+
+    window.addEventListener("hashchange", () => {
+        const hashPanel = getPanelFromHash();
+        if (hashPanel) showPanel(hashPanel);
+    });
+
+    let initialPanel = "ruta-panel";
+
+    const hashPanel = getPanelFromHash();
+    if (hashPanel) {
+        initialPanel = hashPanel;
+    } else {
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            const valid = getValidPanelId(saved);
+            if (valid) initialPanel = valid;
+        } catch {}
+    }
+
+    showPanel(initialPanel, { immediate: true });
+
+    if (history.replaceState) {
+        history.replaceState(null, "", `#${initialPanel}`);
+    }
+</script>
