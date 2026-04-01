@@ -54,7 +54,7 @@ El proyecto se encuentra en desarrollo y puede seguir creciendo con nuevos temas
 Cloná el repositorio:
 
 ```bash
-git clone https://github.com/TU_USUARIO/TU_REPOSITORIO.git
+git clone https://github.com/SurvilaDeveloper/curso-java-y-backend.git
 ```
 
 Entrá en la carpeta del proyecto:
