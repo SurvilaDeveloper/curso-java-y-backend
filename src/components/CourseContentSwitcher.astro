@@ -1,6 +1,7 @@
 ---
 //src/components/CourseContentSwitcher.astro
 import TopicCard from "./TopicCard.astro";
+import { withBase } from "../lib/paths";
 type Tema = {
     id: string;
     data: {
@@ -28,7 +29,7 @@ const buildTopicHref = (topicId: string) => {
                 : basePath
             : "";
 
-    return `${cleanBasePath}/${topicId}`;
+    return withBase(`${cleanBasePath}/${topicId}`);
 };
 ---
 

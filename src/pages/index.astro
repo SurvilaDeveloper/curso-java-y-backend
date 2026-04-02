@@ -51,11 +51,7 @@ const modules = Array.from(modulesMap.entries());
     </div>
   </section>
 
-  <CourseContentSwitcher
-    temas={temas}
-    modules={modules}
-    basePath={withBase("/temas")}
-  />
+  <CourseContentSwitcher temas={temas} modules={modules} basePath="/temas" />
 
   <script>
     const aboutModalButton = document.getElementById("aboutModalButton");
