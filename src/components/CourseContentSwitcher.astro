@@ -1,7 +1,6 @@
 ---
+//src/components/CourseContentSwitcher.astro
 import TopicCard from "./TopicCard.astro";
-
-// 👇 tipo de cada tema (entry de content collection)
 type Tema = {
     id: string;
     data: {
@@ -13,7 +12,6 @@ type Tema = {
     };
 };
 
-// 👇 props del componente
 type Props = {
     temas: Tema[];
     modules: [string, Tema[]][];
@@ -21,6 +19,17 @@ type Props = {
 };
 
 const { temas, modules, basePath = "" } = Astro.props as Props;
+
+const buildTopicHref = (topicId: string) => {
+    const cleanBasePath =
+        basePath && basePath !== "/"
+            ? basePath.endsWith("/")
+                ? basePath.slice(0, -1)
+                : basePath
+            : "";
+
+    return `${cleanBasePath}/${topicId}`;
+};
 ---
 
 <section id="contenido">
@@ -61,7 +70,6 @@ const { temas, modules, basePath = "" } = Astro.props as Props;
     </div>
 </section>
 
-<!-- RUTA -->
 <section id="ruta-panel" data-panel class="content-panel">
     <div class="container">
         <div class="section-title">
@@ -77,10 +85,7 @@ const { temas, modules, basePath = "" } = Astro.props as Props;
 
                         <div class="module-card__topics">
                             {entries.map((entry) => (
-                                <a
-                                    class="pill"
-                                    href={`${basePath}/${entry.id}`}
-                                >
+                                <a class="pill" href={buildTopicHref(entry.id)}>
                                     {entry.data.title}
                                 </a>
                             ))}
@@ -92,7 +97,6 @@ const { temas, modules, basePath = "" } = Astro.props as Props;
     </div>
 </section>
 
-<!-- TEMAS -->
 <section id="temas-panel" data-panel class="content-panel" hidden>
     <div class="container">
         <div class="section-title">
@@ -103,7 +107,7 @@ const { temas, modules, basePath = "" } = Astro.props as Props;
             {
                 temas.map((tema) => (
                     <TopicCard
-                        href={`${basePath}/${tema.id}`}
+                        href={buildTopicHref(tema.id)}
                         title={tema.data.title}
                         description={tema.data.description}
                         module={tema.data.module}
@@ -116,7 +120,6 @@ const { temas, modules, basePath = "" } = Astro.props as Props;
     </div>
 </section>
 
-<!-- TABLA -->
 <section id="tabla-panel" data-panel class="content-panel" hidden>
     <div class="container">
         <div class="section-title">
@@ -145,7 +148,7 @@ const { temas, modules, basePath = "" } = Astro.props as Props;
                                     </td>
                                     <td>{tema.data.module}</td>
                                     <td>
-                                        <a href={`${basePath}/${tema.id}`}>
+                                        <a href={buildTopicHref(tema.id)}>
                                             {tema.data.title}
                                         </a>
                                     </td>

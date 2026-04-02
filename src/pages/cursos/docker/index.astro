@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import CourseContentSwitcher from "../../../components/CourseContentSwitcher.astro";
 import TechLogo from "../../../components/TechLogo.astro";
+import { withBase } from "../../../lib/paths";
 
 const temas = (
     await getCollection("dockerTemas", ({ data }) => !data.draft)
@@ -20,7 +21,6 @@ const modules = Array.from(modulesMap.entries());
 ---
 
 <BaseLayout title="Curso de Docker">
-    <!-- HERO igual que antes -->
     <section class="hero">
         <div class="container hero__grid">
             <div>
@@ -30,11 +30,15 @@ const modules = Array.from(modulesMap.entries());
                     <TechLogo name="docker" label={false} />
                     <h1>Curso de Docker</h1>
                 </div>
+
                 <p class="hero__lead">
                     Un recorrido ordenado para aprender Docker.
                 </p>
+
                 <div class="cta-row">
-                    <a class="button-secondary" href="/">Ver Java</a>
+                    <a class="button-secondary" href={withBase("/")}>
+                        Ver Java
+                    </a>
                 </div>
             </div>
         </div>

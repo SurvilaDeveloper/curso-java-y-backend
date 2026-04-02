@@ -1,11 +1,14 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { withBase } from "../../../lib/paths";
+
+type SpringbootTema = CollectionEntry<"springbootTemas">;
 
 export async function getStaticPaths() {
     const temas = await getCollection(
         "springbootTemas",
-        ({ data }) => !data.draft,
+        (tema: SpringbootTema) => !tema.data.draft,
     );
 
     return temas.map((tema) => ({
@@ -14,10 +17,13 @@ export async function getStaticPaths() {
     }));
 }
 
-const { tema } = Astro.props;
+const { tema } = Astro.props as { tema: SpringbootTema };
 
 const allTemas = (
-    await getCollection("springbootTemas", ({ data }) => !data.draft)
+    await getCollection(
+        "springbootTemas",
+        (tema: SpringbootTema) => !tema.data.draft,
+    )
 ).sort((a, b) => a.data.order - b.data.order);
 
 const currentIndex = allTemas.findIndex((item) => item.id === tema.id);
@@ -36,9 +42,9 @@ const { Content, headings } = await render(tema);
         <div class="container">
             <div class="topic-page__header">
                 <div class="breadcrumbs">
-                    <a href="/">Inicio</a>
+                    <a href={withBase("/")}>Inicio</a>
                     <span>/</span>
-                    <a href="/cursos/springboot">Spring Boot</a>
+                    <a href={withBase("/cursos/springboot")}>Spring Boot</a>
                     <span>/</span>
                     <span>{tema.data.title}</span>
                 </div>
@@ -57,7 +63,13 @@ const { Content, headings } = await render(tema);
                     <span class="pill">Nivel: {tema.data.level}</span>
                     {
                         previous ? (
-                            <a href={`/cursos/springboot/${previous.id}`}>←</a>
+                            <a
+                                href={withBase(
+                                    `/cursos/springboot/${previous.id}`,
+                                )}
+                            >
+                                ←
+                            </a>
                         ) : (
                             <span />
                         )
@@ -65,7 +77,9 @@ const { Content, headings } = await render(tema);
                     <span class="pill">Tema: {tema.data.order}</span>
                     {
                         next ? (
-                            <a href={`/cursos/springboot/${next.id}`}>→</a>
+                            <a href={withBase(`/cursos/springboot/${next.id}`)}>
+                                →
+                            </a>
                         ) : (
                             <span />
                         )
@@ -80,7 +94,11 @@ const { Content, headings } = await render(tema);
                     <nav class="topic-nav">
                         {
                             previous ? (
-                                <a href={`/cursos/springboot/${previous.id}`}>
+                                <a
+                                    href={withBase(
+                                        `/cursos/springboot/${previous.id}`,
+                                    )}
+                                >
                                     ← {previous.data.title}
                                 </a>
                             ) : (
@@ -90,7 +108,11 @@ const { Content, headings } = await render(tema);
 
                         {
                             next ? (
-                                <a href={`/cursos/springboot/${next.id}`}>
+                                <a
+                                    href={withBase(
+                                        `/cursos/springboot/${next.id}`,
+                                    )}
+                                >
                                     {next.data.title} →
                                 </a>
                             ) : (

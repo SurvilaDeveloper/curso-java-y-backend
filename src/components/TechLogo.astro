@@ -1,32 +1,35 @@
 ---
+//src/components/TechLogo.astro
+import { withBase } from "../lib/paths";
+
 interface Props {
     name: "java" | "spring" | "maven" | "docker" | "flyway";
     size?: number;
     label?: boolean;
 }
 
-const { name, size = 48, label = true } = Astro.props;
+const { name, size = 48, label = true } = Astro.props as Props;
 
 const logos = {
     java: {
         label: "Java",
-        src: "/java-original.svg",
+        src: withBase("/java-original.svg"),
     },
     spring: {
         label: "Spring Boot",
-        src: "/spring-original.svg",
+        src: withBase("/spring-original.svg"),
     },
     maven: {
         label: "Maven",
-        src: "/maven-original.svg",
+        src: withBase("/maven-original.svg"),
     },
     docker: {
         label: "Docker",
-        src: "/docker-original.svg",
+        src: withBase("/docker-original.svg"),
     },
     flyway: {
         label: "Flyway",
-        src: "/flyway.svg",
+        src: withBase("/flyway.svg"),
     },
 };
 

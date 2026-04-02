@@ -1,7 +1,8 @@
 ---
-//src/pages/flyway/autotest/[slug].astro
+//src/pages/autotest/flyway/[slug].astro
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import autotestsData from "../../../data/flyway/autotests.json";
+import { withBase } from "../../../lib/paths";
 
 type AutoTestAnswer = {
     text: string;
@@ -47,15 +48,19 @@ const serializedPayload = JSON.stringify({
     slug,
     test,
 });
+
+const homeHref = withBase("/");
+const courseHref = withBase("/cursos/flyway");
+const topicHref = withBase(`/cursos/flyway/${slug}`);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
     <section class="topic-page autotest-page">
         <div class="container">
             <div class="breadcrumbs">
-                <a href="/">Inicio</a>
+                <a href={homeHref}>Inicio</a>
                 <span>/</span>
-                <a href="/cursos/flyway">Flyway</a>
+                <a href={courseHref}>Flyway</a>
                 <span>/</span>
                 <span>{slug}</span>
                 <span>/</span>
@@ -133,9 +138,10 @@ const serializedPayload = JSON.stringify({
                     >
                         Reiniciar respuestas
                     </button>
-                    <a href=`/temas/${slug}` class="button-secondary"
-                        >Ir al tema</a
-                    >
+
+                    <a href={topicHref} class="button-secondary">
+                        Ir al tema
+                    </a>
                 </div>
             </form>
 

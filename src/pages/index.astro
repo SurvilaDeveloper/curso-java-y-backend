@@ -1,16 +1,20 @@
 ---
-import { getCollection } from "astro:content";
+//src/pages/index.astro
+import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CourseContentSwitcher from "../components/CourseContentSwitcher.astro";
 import AboutModal from "../components/AboutModal.astro";
-import "../styles/global.css";
 import TechLogo from "../components/TechLogo.astro";
+import { withBase } from "../lib/paths";
+
+type JavaTema = CollectionEntry<"javaTemas">;
 
 const temas = (
-  await getCollection("javaTemas", ({ data }) => !data.draft)
+  await getCollection("javaTemas", (tema: JavaTema) => !tema.data.draft)
 ).sort((a, b) => a.data.order - b.data.order);
 
-const modulesMap = new Map();
+const modulesMap = new Map<string, JavaTema[]>();
+
 for (const tema of temas) {
   const current = modulesMap.get(tema.data.module) ?? [];
   current.push(tema);
@@ -23,7 +27,6 @@ const modules = Array.from(modulesMap.entries());
 <BaseLayout title="Curso de Java con Astro">
   <AboutModal />
 
-  <!-- HERO igual que antes -->
   <section class="hero">
     <div class="container hero__grid">
       <div>
@@ -36,22 +39,32 @@ const modules = Array.from(modulesMap.entries());
           Curso principal del sitio. Los cursos complementarios están
           disponibles en una sección aparte.
         </p>
+
         <div class="hero-actions">
-          <button id="aboutModalButton" class="hero-link"
-            >Acerca de este sitio</button
-          >
-          <a class="hero-link" href="/cursos"> Ver otros cursos </a>
+          <button id="aboutModalButton" class="hero-link">
+            Acerca de este sitio
+          </button>
+
+          <a class="hero-link" href={withBase("/cursos")}> Ver otros cursos </a>
         </div>
       </div>
     </div>
   </section>
 
-  <CourseContentSwitcher temas={temas} modules={modules} basePath="/temas" />
+  <CourseContentSwitcher
+    temas={temas}
+    modules={modules}
+    basePath={withBase("/temas")}
+  />
+
   <script>
     const aboutModalButton = document.getElementById("aboutModalButton");
     const aboutModalMain = document.getElementById("aboutModalMain");
+
     aboutModalButton?.addEventListener("click", () => {
-      if (aboutModalMain) {
+      window.dispatchEvent(new Event("about-modal:open"));
+
+      if (aboutModalMain && aboutModalMain.style.display !== "flex") {
         aboutModalMain.style.display = "flex";
       }
     });

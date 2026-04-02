@@ -1,10 +1,16 @@
 ---
 //src/pages/temas/[slug].astro
-import { getCollection, render } from "astro:content";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../lib/paths";
+
+type JavaTema = CollectionEntry<"javaTemas">;
 
 export async function getStaticPaths() {
-  const temas = await getCollection("javaTemas", ({ data }) => !data.draft);
+  const temas = await getCollection(
+    "javaTemas",
+    (tema: JavaTema) => !tema.data.draft,
+  );
 
   return temas.map((tema) => ({
     params: { slug: tema.id },
@@ -12,9 +18,10 @@ export async function getStaticPaths() {
   }));
 }
 
-const { tema } = Astro.props;
+const { tema } = Astro.props as { tema: JavaTema };
+
 const allTemas = (
-  await getCollection("javaTemas", ({ data }) => !data.draft)
+  await getCollection("javaTemas", (tema: JavaTema) => !tema.data.draft)
 ).sort((a, b) => a.data.order - b.data.order);
 
 const currentIndex = allTemas.findIndex((item) => item.id === tema.id);
@@ -33,15 +40,17 @@ const { Content, headings } = await render(tema);
     <div class="container">
       <div class="topic-page__header">
         <div class="breadcrumbs">
-          <a href="/">Inicio</a>
+          <a href={withBase("/")}>Inicio</a>
           <span>/</span>
           <span>{tema.data.module}</span>
           <span>/</span>
           <span>{tema.data.title}</span>
         </div>
-        {previous ? <a href={`/temas/${previous.id}`}>←</a> : <div />}
+
+        {previous ? <a href={withBase(`/temas/${previous.id}`)}>←</a> : <div />}
         <span class="pill">Tema {tema.data.order}</span>
-        {next ? <a href={`/temas/${next.id}`}>→</a> : <div />}
+        {next ? <a href={withBase(`/temas/${next.id}`)}>→</a> : <div />}
+
         <h1><span class="red">J</span>ava - {tema.data.title}</h1>
 
         <p class="hero__lead">{tema.data.description}</p>
@@ -54,7 +63,7 @@ const { Content, headings } = await render(tema);
           <nav class="topic-nav" aria-label="Navegación entre temas">
             {
               previous ? (
-                <a href={`/temas/${previous.id}`}>
+                <a href={withBase(`/temas/${previous.id}`)}>
                   <div class="muted">Anterior</div>
                   <strong>{previous.data.title}</strong>
                 </a>
@@ -65,7 +74,7 @@ const { Content, headings } = await render(tema);
 
             {
               next ? (
-                <a href={`/temas/${next.id}`}>
+                <a href={withBase(`/temas/${next.id}`)}>
                   <div class="muted">Siguiente</div>
                   <strong>{next.data.title}</strong>
                 </a>
@@ -73,12 +82,15 @@ const { Content, headings } = await render(tema);
                 <div />
               )
             }
+
             <a
               class="autotestAnchor"
-              href={`/autotest/${tema.id}`}
+              href={withBase(`/autotest/${tema.id}`)}
               target="_blank"
-              rel="npopener noreferrer">Auto-evaluación</a
+              rel="noopener noreferrer"
             >
+              Auto-evaluación
+            </a>
           </nav>
         </article>
 
@@ -86,7 +98,7 @@ const { Content, headings } = await render(tema);
           <h3>Resumen rápido</h3>
           <p><strong>Módulo:</strong> {tema.data.module}</p>
           <p><strong>Nivel:</strong> {tema.data.level}</p>
-          <p><strong>Slug:</strong> /temas/{tema.id}</p>
+          <p><strong>Slug:</strong> {withBase(`/temas/${tema.id}`)}</p>
 
           {
             headings.length > 0 && (

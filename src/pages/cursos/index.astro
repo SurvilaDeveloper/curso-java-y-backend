@@ -3,6 +3,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import "../../styles/global.css";
 import TechLogo from "../../components/TechLogo.astro";
+import { withBase } from "../../lib/paths";
 
 const cursos = [
     {
@@ -52,7 +53,7 @@ const cursos = [
         <div class="container hero__grid">
             <div>
                 <div class="breadcrumbs">
-                    <a href="/">Inicio</a>
+                    <a href={withBase("/")}>Inicio</a>
                     <span>/</span>
                     <span>Otros cursos</span>
                 </div>
@@ -65,7 +66,9 @@ const cursos = [
                 </p>
 
                 <div class="courses-hero-actions">
-                    <a class="courses-link" href="/#contenido"> Ver Java </a>
+                    <a class="courses-link" href={withBase("/#contenido")}>
+                        Ver Java
+                    </a>
                 </div>
             </div>
         </div>
@@ -92,6 +95,7 @@ const cursos = [
                                     {curso.status}
                                 </span>
                             </div>
+
                             <div style="display: flex; flex-direction: row; align-items: center;">
                                 {(curso.logo === "java" ||
                                     curso.logo === "spring" ||
@@ -114,7 +118,7 @@ const cursos = [
                                 {curso.href ? (
                                     <a
                                         class="courses-link courses-link--primary"
-                                        href={curso.href}
+                                        href={withBase(curso.href)}
                                     >
                                         Abrir curso
                                     </a>

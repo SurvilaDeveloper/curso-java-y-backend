@@ -1,4 +1,5 @@
 ---
+//src/components/TopicCard.astro
 interface Props {
   href: string;
   title: string;
@@ -8,7 +9,7 @@ interface Props {
   order: number;
 }
 
-const { href, title, description, module, level, order } = Astro.props;
+const { href, title, description, module, level, order } = Astro.props as Props;
 ---
 
 <a class="topic-card" href={href}>

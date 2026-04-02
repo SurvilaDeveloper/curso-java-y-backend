@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { withBase } from "../../../lib/paths";
 
 export async function getStaticPaths() {
     const temas = await getCollection("flywayTemas", ({ data }) => !data.draft);
@@ -23,6 +24,11 @@ const next =
     currentIndex < allTemas.length - 1 ? allTemas[currentIndex + 1] : null;
 
 const { Content, headings } = await render(tema);
+
+const courseBasePath = "/cursos/flyway";
+
+const buildTopicHref = (slug: string) => withBase(`${courseBasePath}/${slug}`);
+const autotestHref = withBase(`/autotest/flyway/${tema.id}`);
 ---
 
 <BaseLayout
@@ -33,9 +39,9 @@ const { Content, headings } = await render(tema);
         <div class="container">
             <div class="topic-page__header">
                 <div class="breadcrumbs">
-                    <a href="/">Inicio</a>
+                    <a href={withBase("/")}>Inicio</a>
                     <span>/</span>
-                    <a href="/cursos/flyway">Flyway</a>
+                    <a href={withBase(courseBasePath)}>Flyway</a>
                     <span>/</span>
                     <span>{tema.data.title}</span>
                 </div>
@@ -50,21 +56,18 @@ const { Content, headings } = await render(tema);
                 >
                     <span class="pill">Módulo: {tema.data.module}</span>
                     <span class="pill">Nivel: {tema.data.level}</span>
+
                     {
                         previous ? (
-                            <a href={`/cursos/flyway/${previous.id}`}>←</a>
+                            <a href={buildTopicHref(previous.id)}>←</a>
                         ) : (
                             <span />
                         )
                     }
+
                     <span class="pill">Tema: {tema.data.order}</span>
-                    {
-                        next ? (
-                            <a href={`/cursos/flyway/${next.id}`}>→</a>
-                        ) : (
-                            <span />
-                        )
-                    }
+
+                    {next ? <a href={buildTopicHref(next.id)}>→</a> : <span />}
                 </div>
             </div>
 
@@ -75,7 +78,7 @@ const { Content, headings } = await render(tema);
                     <nav class="topic-nav">
                         {
                             previous ? (
-                                <a href={`/cursos/flyway/${previous.id}`}>
+                                <a href={buildTopicHref(previous.id)}>
                                     ← {previous.data.title}
                                 </a>
                             ) : (
@@ -85,19 +88,22 @@ const { Content, headings } = await render(tema);
 
                         {
                             next ? (
-                                <a href={`/cursos/flyway/${next.id}`}>
+                                <a href={buildTopicHref(next.id)}>
                                     {next.data.title} →
                                 </a>
                             ) : (
                                 <span />
                             )
                         }
+
                         <a
                             class="autotestAnchor"
-                            href={`/autotest/flyway/${tema.id}`}
+                            href={autotestHref}
                             target="_blank"
-                            rel="npopener noreferrer">Auto-evaluación</a
+                            rel="noopener noreferrer"
                         >
+                            Auto-evaluación
+                        </a>
                     </nav>
                 </article>
 

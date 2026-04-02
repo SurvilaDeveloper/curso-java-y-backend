@@ -7,34 +7,25 @@ const baseSchema = z.object({
   description: z.string(),
   order: z.number(),
   module: z.string(),
-  level: z.enum(["intro", "base", "intermedio", "avanzado"]).default("base"),
+  level: z
+    .enum(["intro", "base", "intermedio", "avanzado"])
+    .default("base"),
   draft: z.boolean().default(false),
 });
 
-const javaTemas = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/temas" }),
-  schema: baseSchema,
-});
+const createTemasCollection = (base: string) =>
+  defineCollection({
+    loader: glob({ pattern: "**/*.md", base }),
+    schema: baseSchema,
+  });
 
-const springbootTemas = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/springboot/temas" }),
-  schema: baseSchema,
-});
-
-const mavenTemas = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/maven/temas" }),
-  schema: baseSchema,
-});
-
-const dockerTemas = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/docker/temas" }),
-  schema: baseSchema,
-});
-
-const flywayTemas = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/flyway/temas" }),
-  schema: baseSchema,
-});
+const javaTemas = createTemasCollection("./src/content/temas");
+const springbootTemas = createTemasCollection(
+  "./src/content/springboot/temas",
+);
+const mavenTemas = createTemasCollection("./src/content/maven/temas");
+const dockerTemas = createTemasCollection("./src/content/docker/temas");
+const flywayTemas = createTemasCollection("./src/content/flyway/temas");
 
 export const collections = {
   javaTemas,
