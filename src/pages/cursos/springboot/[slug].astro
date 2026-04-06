@@ -1,14 +1,12 @@
 ---
-import { getCollection, render, type CollectionEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { withBase } from "../../../lib/paths";
-
-type SpringbootTema = CollectionEntry<"springbootTemas">;
 
 export async function getStaticPaths() {
     const temas = await getCollection(
         "springbootTemas",
-        (tema: SpringbootTema) => !tema.data.draft,
+        ({ data }) => !data.draft,
     );
 
     return temas.map((tema) => ({
@@ -17,13 +15,10 @@ export async function getStaticPaths() {
     }));
 }
 
-const { tema } = Astro.props as { tema: SpringbootTema };
+const { tema } = Astro.props;
 
 const allTemas = (
-    await getCollection(
-        "springbootTemas",
-        (tema: SpringbootTema) => !tema.data.draft,
-    )
+    await getCollection("springbootTemas", ({ data }) => !data.draft)
 ).sort((a, b) => a.data.order - b.data.order);
 
 const currentIndex = allTemas.findIndex((item) => item.id === tema.id);
@@ -32,6 +27,11 @@ const next =
     currentIndex < allTemas.length - 1 ? allTemas[currentIndex + 1] : null;
 
 const { Content, headings } = await render(tema);
+
+const courseBasePath = "/cursos/springboot";
+
+const buildTopicHref = (slug: string) => withBase(`${courseBasePath}/${slug}`);
+const autotestHref = withBase(`/autotest/springboot/${tema.id}`);
 ---
 
 <BaseLayout
@@ -44,7 +44,7 @@ const { Content, headings } = await render(tema);
                 <div class="breadcrumbs">
                     <a href={withBase("/")}>Inicio</a>
                     <span>/</span>
-                    <a href={withBase("/cursos/springboot")}>Spring Boot</a>
+                    <a href={withBase(courseBasePath)}>springboot</a>
                     <span>/</span>
                     <span>{tema.data.title}</span>
                 </div>
@@ -61,29 +61,18 @@ const { Content, headings } = await render(tema);
                 >
                     <span class="pill">Módulo: {tema.data.module}</span>
                     <span class="pill">Nivel: {tema.data.level}</span>
+
                     {
                         previous ? (
-                            <a
-                                href={withBase(
-                                    `/cursos/springboot/${previous.id}`,
-                                )}
-                            >
-                                ←
-                            </a>
+                            <a href={buildTopicHref(previous.id)}>←</a>
                         ) : (
                             <span />
                         )
                     }
+
                     <span class="pill">Tema: {tema.data.order}</span>
-                    {
-                        next ? (
-                            <a href={withBase(`/cursos/springboot/${next.id}`)}>
-                                →
-                            </a>
-                        ) : (
-                            <span />
-                        )
-                    }
+
+                    {next ? <a href={buildTopicHref(next.id)}>→</a> : <span />}
                 </div>
             </div>
 
@@ -94,11 +83,7 @@ const { Content, headings } = await render(tema);
                     <nav class="topic-nav">
                         {
                             previous ? (
-                                <a
-                                    href={withBase(
-                                        `/cursos/springboot/${previous.id}`,
-                                    )}
-                                >
+                                <a href={buildTopicHref(previous.id)}>
                                     ← {previous.data.title}
                                 </a>
                             ) : (
@@ -108,17 +93,22 @@ const { Content, headings } = await render(tema);
 
                         {
                             next ? (
-                                <a
-                                    href={withBase(
-                                        `/cursos/springboot/${next.id}`,
-                                    )}
-                                >
+                                <a href={buildTopicHref(next.id)}>
                                     {next.data.title} →
                                 </a>
                             ) : (
                                 <span />
                             )
                         }
+
+                        <a
+                            class="autotestAnchor"
+                            href={autotestHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Auto-evaluación
+                        </a>
                     </nav>
                 </article>
 

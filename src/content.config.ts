@@ -26,6 +26,8 @@ const springbootTemas = createTemasCollection(
 const mavenTemas = createTemasCollection("./src/content/maven/temas");
 const dockerTemas = createTemasCollection("./src/content/docker/temas");
 const flywayTemas = createTemasCollection("./src/content/flyway/temas");
+const attacksTemas = createTemasCollection("./src/content/attacks/temas");
+const securityTemas = createTemasCollection("./src/content/security/temas");
 
 export const collections = {
   javaTemas,
@@ -33,4 +35,6 @@ export const collections = {
   mavenTemas,
   dockerTemas,
   flywayTemas,
+  attacksTemas,
+  securityTemas,
 };

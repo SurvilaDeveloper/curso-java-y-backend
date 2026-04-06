@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <linearGradient id="backendGradient" x1="12" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="55%" stop-color="#84cc16" />
+      <stop offset="100%" stop-color="#facc15" />
+    </linearGradient>
+
+    <filter id="backendGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3.2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#backendGlow)">
+    <!-- Escudo -->
+    <path
+      d="M32 6L50 12V28C50 40.5 42.4 51.4 32 57C21.6 51.4 14 40.5 14 28V12L32 6Z"
+      fill="url(#backendGradient)"
+      fill-opacity="0.08"
+      stroke="url(#backendGradient)"
+      stroke-width="3.2"
+      stroke-linejoin="round"
+    />
+
+    <!-- Símbolo backend: candado + brackets de código -->
+    <path d="M27 26V24.8C27 21.6 29.2 19 32 19C34.8 19 37 21.6 37 24.8V26" stroke="url(#backendGradient)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+    <rect x="23" y="26" width="18" height="15" rx="3.2" fill="url(#backendGradient)" fill-opacity="0.08" stroke="url(#backendGradient)" stroke-width="2.8" />
+
+    <!-- Detalles de servidor dentro del candado -->
+    <circle cx="27.5" cy="31.2" r="1.2" fill="url(#backendGradient)" />
+    <circle cx="27.5" cy="35.8" r="1.2" fill="url(#backendGradient)" />
+    <path d="M30.5 31.2H36.2M30.5 35.8H36.2" stroke="url(#backendGradient)" stroke-width="2.4" stroke-linecap="round" />
+
+    <!-- Brackets de código -->
+    <path d="M20.5 27.5L16.5 33L20.5 38.5" stroke="url(#backendGradient)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M43.5 27.5L47.5 33L43.5 38.5" stroke="url(#backendGradient)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Línea base/API -->
+    <path d="M26 45H38" stroke="url(#backendGradient)" stroke-width="2.8" stroke-linecap="round" />
+  </g>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+    <defs>
+        <linearGradient id="cyberGradient" x1="12" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#ff5a7a" />
+            <stop offset="55%" stop-color="#ff2d55" />
+            <stop offset="100%" stop-color="#ff8a1f" />
+        </linearGradient>
+
+        <filter id="cyberGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3.2" result="blur" />
+            <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+
+    <g filter="url(#cyberGlow)">
+        <!-- Escudo -->
+        <path d="M32 6L50 12V28C50 40.5 42.4 51.4 32 57C21.6 51.4 14 40.5 14 28V12L32 6Z" fill="url(#cyberGradient)"
+            fill-opacity="0.08" stroke="url(#cyberGradient)" stroke-width="3.2" stroke-linejoin="round" />
+
+        <!-- Mira / objetivo -->
+        <circle cx="32" cy="30" r="9" stroke="url(#cyberGradient)" stroke-width="2.8" />
+        <circle cx="32" cy="30" r="2.8" fill="url(#cyberGradient)" />
+        <path d="M32 17V22M32 38V43M19 30H24M40 30H45" stroke="url(#cyberGradient)" stroke-width="2.8"
+            stroke-linecap="round" />
+
+        <!-- Rayo / ataque -->
+        <path d="M40.5 19.5L25 39.5H31L26.5 48L40 31H34L40.5 19.5Z" fill="url(#cyberGradient)" />
+    </g>
+</svg>

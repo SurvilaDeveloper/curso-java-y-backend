@@ -37,10 +37,18 @@ const cursos = [
         status: "Disponible",
     },
     {
-        title: "Ataques a aplicaciones web",
+        logo: "attack",
+        title: "Tipo de ciber ataques",
+        description: "Curso complementario",
+        href: "/cursos/attacks",
+        status: "Disponible",
+    },
+    {
+        logo: "security",
+        title: "Seguridad backend con Spring",
         description: "En desarrollo",
-        href: null,
-        status: "Próximamente",
+        href: "/cursos/security",
+        status: "Disponible",
     },
 ];
 ---
@@ -101,7 +109,9 @@ const cursos = [
                                     curso.logo === "spring" ||
                                     curso.logo === "maven" ||
                                     curso.logo === "docker" ||
-                                    curso.logo === "flyway") && (
+                                    curso.logo === "flyway" ||
+                                    curso.logo === "attack" ||
+                                    curso.logo === "security") && (
                                     <TechLogo
                                         name={curso.logo}
                                         label={false}

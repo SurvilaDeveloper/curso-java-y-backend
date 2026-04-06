@@ -3,7 +3,14 @@
 import { withBase } from "../lib/paths";
 
 interface Props {
-    name: "java" | "spring" | "maven" | "docker" | "flyway";
+    name:
+        | "java"
+        | "spring"
+        | "maven"
+        | "docker"
+        | "flyway"
+        | "attack"
+        | "security";
     size?: number;
     label?: boolean;
 }
@@ -30,6 +37,14 @@ const logos = {
     flyway: {
         label: "Flyway",
         src: withBase("/flyway.svg"),
+    },
+    attack: {
+        label: "Ciber attack",
+        src: withBase("/attack.svg"),
+    },
+    security: {
+        label: "Security backend",
+        src: withBase("/backend-security-logo.svg"),
     },
 };
 

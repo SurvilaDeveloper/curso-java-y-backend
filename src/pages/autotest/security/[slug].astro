@@ -1,0 +1,29 @@
+---
+import AutotestPage from "../../../components/AutotestPage.astro";
+import autotestsData from "../../../data/security/autotests.json"; ///// <--- cambiar data/..x../autotests.json
+import type { AutoTestTopic, AutoTestsMap } from "../../../lib/autotest-random";
+
+export function getStaticPaths() {
+    const autotests = autotestsData as AutoTestsMap;
+
+    return Object.entries(autotests).map(([slug, test]) => ({
+        params: { slug },
+        props: { slug, test },
+    }));
+}
+
+const { slug, test } = Astro.props as {
+    slug: string;
+    test: AutoTestTopic;
+};
+
+//////Cambiar courseSlug, courseLabel y courseTitle en <AutotestPage />
+---
+
+<AutotestPage
+    slug={slug}
+    test={test}
+    courseSlug="security"
+    courseLabel="security"
+    courseTitle="Curso de Seguridad backend"
+/>

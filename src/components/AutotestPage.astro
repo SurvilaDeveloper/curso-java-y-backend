@@ -1,0 +1,127 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../lib/paths";
+import "../styles/autotest.css";
+import type { AutoTestTopic } from "../lib/autotest-random";
+
+type Props = {
+    slug: string;
+    test: AutoTestTopic;
+    courseSlug: string;
+    courseLabel: string;
+    courseTitle: string;
+    reshuffleOnReset?: boolean;
+    scrollToReport?: boolean;
+};
+
+const {
+    slug,
+    test,
+    courseSlug,
+    courseLabel,
+    courseTitle,
+    reshuffleOnReset = true,
+    scrollToReport = true,
+} = Astro.props as Props;
+
+const pageTitle = `${test.title} | ${courseTitle}`;
+const pageDescription =
+    test.description ??
+    `Autoevaluación del tema ${slug} para medir comprensión y repaso.`;
+
+const serializedPayload = JSON.stringify({
+    slug,
+    test,
+    options: {
+        reshuffleOnReset,
+        scrollToReport,
+    },
+});
+
+const homeHref = withBase("/");
+const courseHref = withBase(`/cursos/${courseSlug}`);
+const topicHref = withBase(`/cursos/${courseSlug}/${slug}`);
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+    <section class="topic-page autotest-page">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href={homeHref}>Inicio</a>
+                <span>/</span>
+                <a href={courseHref}>{courseLabel}</a>
+                <span>/</span>
+                <span>{slug}</span>
+                <span>/</span>
+                <span>autotest</span>
+            </div>
+
+            <header class="autotest-hero card">
+                <div class="autotest-hero__content">
+                    <span class="pill">Autotest</span>
+                    <h1 class="autotest-h1">{test.title}</h1>
+
+                    <p class="hero__lead">
+                        {
+                            test.description ??
+                                "Respondé las preguntas y obtené una devolución automática al final."
+                        }
+                    </p>
+
+                    <div class="autotest-hero__meta">
+                        <span class="pill">
+                            {test.questions.length} preguntas
+                        </span>
+                        <span class="pill">
+                            Nota mínima sugerida: {test.passingScore ?? 70}%
+                        </span>
+                    </div>
+                </div>
+            </header>
+
+            <form class="autotest-form" data-autotest-form novalidate>
+                <div class="autotest-questions" data-questions-root></div>
+
+                <div class="autotest-actions">
+                    <button type="submit" class="button">
+                        Corregir autoevaluación
+                    </button>
+
+                    <button
+                        type="button"
+                        class="button-secondary"
+                        data-reset-button
+                    >
+                        Reiniciar respuestas
+                    </button>
+
+                    <a href={topicHref} class="button-secondary">
+                        Ir al tema
+                    </a>
+                </div>
+            </form>
+
+            <section
+                class="autotest-report card"
+                data-report
+                hidden
+                aria-live="polite"
+            >
+                <div data-report-summary></div>
+                <div class="autotest-report__details" data-report-details></div>
+            </section>
+        </div>
+    </section>
+
+    <script
+        id="autotest-data"
+        type="application/json"
+        set:html={serializedPayload}
+    />
+
+    <script>
+        import { initAutotestClient } from "../lib/autotest-client";
+
+        initAutotestClient();
+    </script>
+</BaseLayout>
