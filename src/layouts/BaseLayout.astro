@@ -116,8 +116,8 @@ const {
         position: sticky;
         top: 0;
         z-index: 20;
-        backdrop-filter: blur(14px);
-        background: rgba(9, 16, 31, 0.7);
+        backdrop-filter: blur(7px);
+        background: rgba(0, 0, 0, 0.8);
         border-bottom: 1px solid var(--line);
       }
 
@@ -170,19 +170,15 @@ const {
       .site-footer {
         margin-top: 3rem;
         border-top: 1px solid var(--line);
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.02) 0%,
-          rgba(255, 255, 255, 0.01) 100%
-        );
+        background: black;
       }
 
       .site-footer__inner {
         display: grid;
         grid-template-columns: minmax(0, 1.4fr) auto;
         align-items: center;
-        gap: 1.25rem;
-        padding: 1.5rem 0 1.75rem;
+        gap: 1rem;
+        padding: 1rem 0 1rem;
       }
 
       .footer-info {
@@ -194,7 +190,7 @@ const {
       .footer-title {
         margin: 0;
         color: var(--text);
-        font-size: 1rem;
+        font-size: 0.8rem;
         font-weight: 700;
         line-height: 1.35;
       }
@@ -205,7 +201,7 @@ const {
         gap: 0.55rem;
         align-items: center;
         color: var(--muted);
-        font-size: 0.94rem;
+        font-size: 0.7rem;
       }
 
       .footer-meta strong {
@@ -219,8 +215,8 @@ const {
       .footer-note {
         margin: 0;
         color: var(--muted);
-        font-size: 0.92rem;
-        line-height: 1.65;
+        font-size: 0.7rem;
+        line-height: 1.5;
       }
 
       .footer-actions {
@@ -511,6 +507,7 @@ const {
         <nav class="nav" aria-label="Principal">
           <a href={withBase("/")}>Inicio</a>
           <a href={withBase("/cursos")}>Otros cursos</a>
+          <a href={withBase("/articulos")}>Artículos</a>
         </nav>
       </div>
     </header>

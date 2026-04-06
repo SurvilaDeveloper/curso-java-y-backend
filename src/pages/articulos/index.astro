@@ -1,0 +1,57 @@
+---
+//src/pages/cursos/articles/index.astro
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleContentSwitcher from "../../components/ArticleContentSwitcher.astro";
+import TechLogo from "../../components/TechLogo.astro";
+import { withBase } from "../../lib/paths";
+
+type ArticlesTema = CollectionEntry<"articlesTemas">;
+
+const temas = (
+    await getCollection(
+        "articlesTemas",
+        (tema: ArticlesTema) => !tema.data.draft,
+    )
+).sort((a, b) => a.data.order - b.data.order);
+
+const modulesMap = new Map<string, ArticlesTema[]>();
+
+for (const tema of temas) {
+    const current = modulesMap.get(tema.data.module) ?? [];
+    current.push(tema);
+    modulesMap.set(tema.data.module, current);
+}
+
+const modules = Array.from(modulesMap.entries());
+---
+
+<BaseLayout title="Curso de Java - Artículos">
+    <section class="hero" style="background-color:rgb(10, 10, 10);">
+        <div class="container hero__grid">
+            <div>
+                <div
+                    style="display:flex; flex-direction:row; align-items: center;"
+                >
+                    <h1>Artículos</h1>
+                </div>
+
+                <p class="hero__lead">
+                    Una serie de artículos relacionados con Java y backend.
+                </p>
+
+                <div class="cta-row">
+                    <a class="button-secondary" href={withBase("/")}>
+                        Ver Java
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <ArticleContentSwitcher
+        temas={temas}
+        modules={modules}
+        basePath="/articulos"
+    />
+</BaseLayout>

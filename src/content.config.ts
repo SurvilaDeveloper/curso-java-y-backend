@@ -28,6 +28,7 @@ const dockerTemas = createTemasCollection("./src/content/docker/temas");
 const flywayTemas = createTemasCollection("./src/content/flyway/temas");
 const attacksTemas = createTemasCollection("./src/content/attacks/temas");
 const securityTemas = createTemasCollection("./src/content/security/temas");
+const articlesTemas = createTemasCollection("./src/content/articles/temas");
 
 export const collections = {
   javaTemas,
@@ -37,4 +38,5 @@ export const collections = {
   flywayTemas,
   attacksTemas,
   securityTemas,
+  articlesTemas,
 };
