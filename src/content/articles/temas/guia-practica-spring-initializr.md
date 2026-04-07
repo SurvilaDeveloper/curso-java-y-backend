@@ -26,7 +26,7 @@ Spring Initializr es una herramienta para generar rápidamente la base de un pro
 
 Sitio principal:
 
-- `https://start.spring.io/`
+- https://start.spring.io/
 
 ---
 
@@ -56,7 +56,7 @@ gradle -version
 
 ### Opción A: desde la web
 
-1. Abrir `https://start.spring.io/`
+1. Abrir https://start.spring.io/
 2. Completar los campos del formulario
 3. Elegir las dependencias necesarias
 4. Pulsar **Generate**
