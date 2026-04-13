@@ -46,8 +46,22 @@ const cursos = [
     {
         logo: "security",
         title: "Seguridad backend con Spring",
-        description: "En desarrollo",
+        description: "Curso complementario",
         href: "/cursos/security",
+        status: "Disponible",
+    },
+    {
+        logo: "microservicios",
+        title: "Microservicios con Spring Boot y Spring Cloud",
+        description: "Curso complementario",
+        href: "/cursos/microservicios",
+        status: "Disponible",
+    },
+    {
+        logo: "microservicios",
+        title: "Microservicios con Spring Boot y Spring Cloud, construcción de proyecto paso a paso",
+        description: "Curso complementario",
+        href: "/cursos/microservicios-practica",
         status: "Disponible",
     },
 ];
@@ -106,7 +120,8 @@ const cursos = [
                                     curso.logo === "docker" ||
                                     curso.logo === "flyway" ||
                                     curso.logo === "attack" ||
-                                    curso.logo === "security") && (
+                                    curso.logo === "security" ||
+                                    curso.logo === "microservicios") && (
                                     <TechLogo
                                         name={curso.logo}
                                         label={false}

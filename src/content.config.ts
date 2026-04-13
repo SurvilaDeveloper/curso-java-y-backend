@@ -29,6 +29,8 @@ const flywayTemas = createTemasCollection("./src/content/flyway/temas");
 const attacksTemas = createTemasCollection("./src/content/attacks/temas");
 const securityTemas = createTemasCollection("./src/content/security/temas");
 const articlesTemas = createTemasCollection("./src/content/articles/temas");
+const microserviciosTemas = createTemasCollection("./src/content/microservicios/temas");
+const microserviciosPracticaTemas = createTemasCollection("./src/content/microserviciospractica/temas");
 
 export const collections = {
   javaTemas,
@@ -39,4 +41,6 @@ export const collections = {
   attacksTemas,
   securityTemas,
   articlesTemas,
+  microserviciosTemas,
+  microserviciosPracticaTemas,
 };

@@ -1,0 +1,57 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CourseContentSwitcher from "../../../components/CourseContentSwitcher.astro";
+import TechLogo from "../../../components/TechLogo.astro";
+import { withBase } from "../../../lib/paths";
+
+const temas = (
+    await getCollection(
+        "microserviciosPracticaTemas",
+        ({ data }) => !data.draft,
+    )
+).sort((a, b) => a.data.order - b.data.order);
+
+const modulesMap = new Map();
+for (const tema of temas) {
+    const current = modulesMap.get(tema.data.module) ?? [];
+    current.push(tema);
+    modulesMap.set(tema.data.module, current);
+}
+
+const modules = Array.from(modulesMap.entries());
+---
+
+<BaseLayout title="Curso de microservicios-práctica">
+    <section class="hero">
+        <div class="container hero__grid">
+            <div>
+                <div
+                    style="display:flex; flex-direction:row; align-items: center;"
+                >
+                    <TechLogo name="microservicios" label={false} />
+                    <h1>
+                        Curso de Microservicios con Spring Boot y Spring Cloud,
+                        cración de un proyecto paso a paso
+                    </h1>
+                </div>
+
+                <p class="hero__lead">
+                    Un recorrido ordenado para aprender microservicios.
+                </p>
+
+                <div class="cta-row">
+                    <a class="button-secondary" href={withBase("/")}>
+                        Ver Java
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <CourseContentSwitcher
+        temas={temas}
+        modules={modules}
+        basePath="/cursos/microservicios-practica"
+    />
+</BaseLayout>

@@ -1,0 +1,122 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Logo Microservicios</title>
+  <desc id="desc">Icono vectorial de microservicios con varios módulos independientes conectados a un núcleo central.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="64" y1="56" x2="448" y2="456" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="cardA" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+
+    <linearGradient id="cardB" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#34D399"/>
+      <stop offset="1" stop-color="#14B8A6"/>
+    </linearGradient>
+
+    <linearGradient id="cardC" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+
+    <linearGradient id="center" x1="220" y1="188" x2="308" y2="316" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#CBD5E1"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#020617" flood-opacity="0.35"/>
+    </filter>
+
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect x="32" y="32" width="448" height="448" rx="44" fill="url(#bg)"/>
+  <rect x="32" y="32" width="448" height="448" rx="44" stroke="#1E293B" stroke-width="2"/>
+
+  <!-- soft grid -->
+  <g opacity="0.18">
+    <path d="M96 96H416" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M96 160H416" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M96 224H416" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M96 288H416" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M96 352H416" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M96 416H416" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M96 96V416" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M160 96V416" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M224 96V416" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M288 96V416" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M352 96V416" stroke="#38BDF8" stroke-width="1"/>
+    <path d="M416 96V416" stroke="#38BDF8" stroke-width="1"/>
+  </g>
+
+  <!-- connection glow -->
+  <g opacity="0.6" filter="url(#glow)">
+    <path d="M186 164L234 212" stroke="#22D3EE" stroke-width="8" stroke-linecap="round"/>
+    <path d="M326 164L278 212" stroke="#34D399" stroke-width="8" stroke-linecap="round"/>
+    <path d="M186 308L234 260" stroke="#A78BFA" stroke-width="8" stroke-linecap="round"/>
+    <path d="M326 308L278 260" stroke="#60A5FA" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <!-- service cards -->
+  <g filter="url(#shadow)">
+    <rect x="118" y="116" width="92" height="72" rx="18" fill="url(#cardA)"/>
+    <rect x="302" y="116" width="92" height="72" rx="18" fill="url(#cardB)"/>
+    <rect x="118" y="300" width="92" height="72" rx="18" fill="url(#cardC)"/>
+    <rect x="302" y="300" width="92" height="72" rx="18" fill="url(#cardA)"/>
+  </g>
+
+  <!-- service card details -->
+  <g opacity="0.95">
+    <rect x="136" y="136" width="56" height="8" rx="4" fill="#E0F2FE"/>
+    <rect x="136" y="152" width="42" height="8" rx="4" fill="#BAE6FD"/>
+    <circle cx="182" cy="157" r="5" fill="#ECFEFF"/>
+
+    <rect x="320" y="136" width="56" height="8" rx="4" fill="#D1FAE5"/>
+    <rect x="320" y="152" width="42" height="8" rx="4" fill="#A7F3D0"/>
+    <circle cx="366" cy="157" r="5" fill="#F0FDFA"/>
+
+    <rect x="136" y="320" width="56" height="8" rx="4" fill="#EDE9FE"/>
+    <rect x="136" y="336" width="42" height="8" rx="4" fill="#DDD6FE"/>
+    <circle cx="182" cy="341" r="5" fill="#F5F3FF"/>
+
+    <rect x="320" y="320" width="56" height="8" rx="4" fill="#DBEAFE"/>
+    <rect x="320" y="336" width="42" height="8" rx="4" fill="#BFDBFE"/>
+    <circle cx="366" cy="341" r="5" fill="#EFF6FF"/>
+  </g>
+
+  <!-- central orchestrator -->
+  <g filter="url(#shadow)">
+    <rect x="214" y="206" width="84" height="84" rx="24" fill="url(#center)"/>
+    <rect x="214" y="206" width="84" height="84" rx="24" stroke="#94A3B8" stroke-width="2"/>
+  </g>
+
+  <!-- central symbol -->
+  <g>
+    <circle cx="256" cy="248" r="9" fill="#0F172A"/>
+    <circle cx="240" cy="232" r="7" fill="#0F172A"/>
+    <circle cx="272" cy="232" r="7" fill="#0F172A"/>
+    <circle cx="240" cy="264" r="7" fill="#0F172A"/>
+    <circle cx="272" cy="264" r="7" fill="#0F172A"/>
+    <path d="M240 232L256 248L272 232" stroke="#0F172A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M240 264L256 248L272 264" stroke="#0F172A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- outer tiny nodes -->
+  <g>
+    <circle cx="164" cy="152" r="4" fill="#ECFEFF"/>
+    <circle cx="348" cy="152" r="4" fill="#ECFDF5"/>
+    <circle cx="164" cy="336" r="4" fill="#F5F3FF"/>
+    <circle cx="348" cy="336" r="4" fill="#EFF6FF"/>
+  </g>
+</svg>

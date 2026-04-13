@@ -10,7 +10,8 @@ interface Props {
         | "docker"
         | "flyway"
         | "attack"
-        | "security";
+        | "security"
+        | "microservicios";
     size?: number;
     label?: boolean;
 }
@@ -45,6 +46,10 @@ const logos = {
     security: {
         label: "Security backend",
         src: withBase("/backend-security-logo.svg"),
+    },
+    microservicios: {
+        label: "Microservicios",
+        src: withBase("/logo-microservicios.svg"),
     },
 };
 
