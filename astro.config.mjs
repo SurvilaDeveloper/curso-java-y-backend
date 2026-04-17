@@ -1,10 +1,11 @@
 import { defineConfig } from "astro/config";
 
-const ENV = "github" // local o github
+const ENV = "github"; // "local" | "github"
+const isGithub = ENV === "github";
 
 export default defineConfig({
   site: "https://surviladeveloper.github.io",
-  base: ENV == "github" ? "/curso-java-y-backend" : ENV == "local" ? "/" : "/",
+  base: isGithub ? "/curso-java-y-backend" : "/",
 
   markdown: {
     shikiConfig: {
@@ -12,10 +13,10 @@ export default defineConfig({
         env: "dotenv",
         gradle: "groovy",
         Dockerfile: "docker",
-        dockerignore: "plaintext",
-        gitignore: "plaintext",
-        dns: "plaintext",
-        caddyfile: "plaintext",
+        dockerignore: "text",
+        gitignore: "text",
+        dns: "text",
+        caddyfile: "text",
       },
     },
   },

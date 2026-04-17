@@ -130,8 +130,9 @@ Si querés ser más minimalista todavía, con `Spring Web` alcanza para esta eta
 
 La idea es no llenar el proyecto de dependencias antes de necesitarlas.
 
----
+<strong style="color: rgb(127,255,127);"><a href="https://start.spring.io/" target="_blank" rel="noopener noreferrer">Ir a Initializr → //start.spring.io/</a></strong>
 
+---
 ## Paso 4 · Generar y ubicar el proyecto
 
 Una vez descargado el zip o generado el proyecto desde el IDE, extraelo o crealo dentro de:
