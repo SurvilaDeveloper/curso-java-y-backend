@@ -31,6 +31,7 @@ const securityTemas = createTemasCollection("./src/content/security/temas");
 const articlesTemas = createTemasCollection("./src/content/articles/temas");
 const microserviciosTemas = createTemasCollection("./src/content/microservicios/temas");
 const microserviciosPracticaTemas = createTemasCollection("./src/content/microserviciospractica/temas");
+const microserviciosPasosTemas = createTemasCollection("./src/content/microserviciospasos/temas");
 
 export const collections = {
   javaTemas,
@@ -43,4 +44,5 @@ export const collections = {
   articlesTemas,
   microserviciosTemas,
   microserviciosPracticaTemas,
+  microserviciosPasosTemas,
 };
