@@ -1,6 +1,6 @@
 import { defineConfig } from "astro/config";
 
-const ENV = "local"; // "local" | "github"
+const ENV = "github"; // "local" | "github"
 const isGithub = ENV === "github";
 
 export default defineConfig({
